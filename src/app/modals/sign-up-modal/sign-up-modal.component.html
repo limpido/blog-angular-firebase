@@ -1,0 +1,53 @@
+<div class="sign-up-modal-container" fxLayout="column">
+  <mat-spinner class="spinner" *ngIf="signUpModal.disableClose"></mat-spinner>
+  <div class="overlay" fxFlexFill *ngIf="signUpModal.disableClose"></div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h3 mat-dialog-title>Sign Up</h3>
+  </div>
+  <mat-dialog-content>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <div fxLayout="row">
+        <mat-form-field appearance="outline" fxFlexFill>
+          <mat-label>*Username</mat-label>
+          <input matInput [formControlName]="'username'" placeholder="">
+          <mat-error *ngIf="signUpForm.get('username')!.hasError('required')">username is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field appearance="outline" fxFlexFill>
+          <mat-label>*Email</mat-label>
+          <input matInput [formControlName]="'email'" placeholder="">
+          <mat-error *ngIf="signUpForm.get('email')!.hasError('required')">email is required</mat-error>
+          <mat-error *ngIf="signUpForm.get('email')!.hasError('email')">email address entered is invalid</mat-error>
+          <!--        <mat-error *ngIf="signUpForm.get('email')!.hasError('required')">this email address already exists</mat-error>-->
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field appearance="outline" fxFlexFill>
+          <mat-label>*Password</mat-label>
+          <input matInput [formControlName]="'password'" placeholder="at least 6 characters">
+          <mat-error *ngIf="signUpForm.get('password')!.hasError('required')">password is required</mat-error>
+          <mat-error *ngIf="signUpForm.get('password')!.hasError('minlength')">password length must >= 6</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field appearance="outline" fxFlexFill>
+          <mat-label>*Confirm Password</mat-label>
+          <input matInput [formControlName]="'passwordConfirm'" placeholder="">
+          <mat-error *ngIf="signUpForm.get('passwordConfirm')!.hasError('required')">confirm password is required</mat-error>
+          <mat-error *ngIf="!signUpForm.get('passwordConfirm')!.hasError('required') &&
+                          signUpForm.hasError('mismatch')">
+            password does not match</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button mat-raised-button color="primary">Sign Up</button>
+      </div>
+    </form>
+  </mat-dialog-content>
+</div>

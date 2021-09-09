@@ -14,12 +14,17 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDialogModule} from "@angular/material/dialog";
+import { SignUpVerificationComponent } from './sign-up-verification/sign-up-verification.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BaseComponent,
-    SignUpModalComponent
+    SignUpModalComponent,
+    SignUpVerificationComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

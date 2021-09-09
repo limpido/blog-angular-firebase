@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SignUpModalComponent} from "../modals/sign-up-modal/sign-up-modal.component";
+import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-base',
@@ -9,7 +11,10 @@ import {SignUpModalComponent} from "../modals/sign-up-modal/sign-up-modal.compon
 })
 export class BaseComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+  ) {
+  }
 
   ngOnInit(): void {
   }
