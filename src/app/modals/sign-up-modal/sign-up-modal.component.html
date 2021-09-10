@@ -28,7 +28,10 @@
       <div fxLayout="row">
         <mat-form-field appearance="outline" fxFlexFill>
           <mat-label>*Password</mat-label>
-          <input matInput [formControlName]="'password'" placeholder="at least 6 characters">
+          <input matInput [formControlName]="'password'" [type]="hidePassword ? 'password' : 'text'" placeholder="at least 6 characters">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
           <mat-error *ngIf="signUpForm.get('password')!.hasError('required')">password is required</mat-error>
           <mat-error *ngIf="signUpForm.get('password')!.hasError('minlength')">password length must >= 6</mat-error>
         </mat-form-field>
@@ -37,11 +40,13 @@
       <div fxLayout="row">
         <mat-form-field appearance="outline" fxFlexFill>
           <mat-label>*Confirm Password</mat-label>
-          <input matInput [formControlName]="'passwordConfirm'" placeholder="">
+          <input matInput [formControlName]="'passwordConfirm'" [type]="hidePasswordConfirm ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswordConfirm">
+            <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
           <mat-error *ngIf="signUpForm.get('passwordConfirm')!.hasError('required')">confirm password is required</mat-error>
           <mat-error *ngIf="!signUpForm.get('passwordConfirm')!.hasError('required') &&
-                          signUpForm.hasError('mismatch')">
-            password does not match</mat-error>
+                          signUpForm.hasError('mismatch')">password does not match</mat-error>
         </mat-form-field>
       </div>
 

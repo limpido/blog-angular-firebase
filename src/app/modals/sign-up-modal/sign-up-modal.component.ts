@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
@@ -15,6 +15,8 @@ import {UserService} from "../../services/user.service";
 export class SignUpModalComponent implements OnInit {
 
   signUpForm: FormGroup;
+  hidePassword: boolean = true;
+  hidePasswordConfirm: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
