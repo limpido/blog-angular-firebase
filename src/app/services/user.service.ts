@@ -16,14 +16,24 @@ export class UserService {
     return this.af.doc(`users/${uid}`).set(user);
   }
 
+  getUserByUid(uid: string): Promise<User> {
+    return this.af.doc(`users/${uid}`).get().toPromise().then((res) => {
+      return res.data() as User;
+    })
+  }
+
+  updateUser(uid: string, data: User | any): Promise<void> {
+    return this.af.doc(`users/${uid}`).update(data);
+  }
+
   setUserUnverified(uid: string, user: User): Promise<void> {
     return this.af.doc(`users_unverified/${uid}`).set(user);
   }
 
-  getUserUnverifiedByUid(uid: string): Promise<Array<User>> {
+  getUserUnverifiedByEmail(email: string): Promise<Array<User>> {
     return this.af.collection(`users_unverified`, ref => {
       return ref
-        .where('uid', '==', uid)
+        .where('email', '==', email)
         .limit(1);
     }).snapshotChanges().pipe(map((docs: DocumentChangeAction<any>[]) =>
       docs.map((a: DocumentChangeAction<any>) => {

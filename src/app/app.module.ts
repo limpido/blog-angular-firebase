@@ -18,6 +18,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import {MatIconModule} from '@angular/material/icon';
 import {SignUpVerificationComponent} from "./sign-up-verification/sign-up-verification.component";
+import { LogInModalComponent } from './modals/log-in-modal/log-in-modal.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {SignUpVerificationComponent} from "./sign-up-verification/sign-up-verifi
     BaseComponent,
     SignUpModalComponent,
     SignUpVerificationComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    LogInModalComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import {SignUpVerificationComponent} from "./sign-up-verification/sign-up-verifi
     MatInputModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

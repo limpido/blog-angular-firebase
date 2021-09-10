@@ -50,6 +50,8 @@ export class SignUpModalComponent implements OnInit {
       const password = this.signUpForm.get('password')?.value.trim();
       const username = this.signUpForm.get('username')?.value.trim();
       const userCredential = await this.authService.signUpViaEmailPassword(email, password);
+      this.signUpModal.close();
+
       if (userCredential) {
         console.log(userCredential);
         const uid = userCredential.user!.uid;
@@ -64,8 +66,6 @@ export class SignUpModalComponent implements OnInit {
           this.userService.setUser(uid, user),
           this.userService.setUserUnverified(uid, user)
         ]);
-        this.signUpModal.close();
-        await this.router.navigate([`/sign-up-verification-email-sent`]);
       }
     }
   }

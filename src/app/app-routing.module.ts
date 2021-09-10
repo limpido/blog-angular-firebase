@@ -12,9 +12,9 @@ const routes: Routes = [
     // guard
   },
   {
-    path: 'sign-up-email-verified',
+    path: 'sign-up-email-verification',
     pathMatch: 'full',
-    component: EditProfileComponent
+    component: BaseComponent
     // guard
   },
   {
