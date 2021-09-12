@@ -1,0 +1,17 @@
+<div class="nav-bar-container" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+  <nav mat-tab-nav-bar *ngIf="!!tabs.length">
+    <a mat-tab-link *ngFor="let tab of tabs" (click)="selectTab(tab)" [active]="activeTab == tab">
+      {{tab.name}}</a>
+  </nav>
+
+  <div class="profile">
+    <button mat-button [matMenuTriggerFor]="menu" id="profile-photo-btn">
+      <img src="assets/default-profile-photo.jpg" id="profile-photo">
+    </button>
+    <mat-menu #menu="matMenu">
+      <div  *ngFor="let menuItem of menuItems">
+        <button mat-menu-item (click)="selectMenuItem(menuItem)">{{menuItem.name}}</button>
+      </div>
+    </mat-menu>
+  </div>
+</div>

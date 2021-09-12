@@ -20,6 +20,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {SignUpVerificationComponent} from "./sign-up-verification/sign-up-verification.component";
 import { LogInModalComponent } from './modals/log-in-modal/log-in-modal.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     SignUpModalComponent,
     SignUpVerificationComponent,
     EditProfileComponent,
-    LogInModalComponent
+    LogInModalComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,22 @@
+.nav-bar-container {
+  position: relative;
+
+  .profile {
+    position: absolute;
+    right: 3%;
+    height: 100%;
+    width: 49px;
+
+    #profile-photo-btn {
+      border-radius: 50%;
+      height: 100%;
+      min-width: 100%;
+      padding: 0;
+
+      #profile-photo {
+        border-radius: 50%;
+        height: 100%;
+      }
+    }
+  }
+}
