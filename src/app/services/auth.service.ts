@@ -3,34 +3,36 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import {User} from "../models/user";
 import {UserService} from "./user.service";
+import {Observable, from} from "rxjs";
+import {map, switchMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  user: User | undefined | null;
+  user: User;
+  user$: Observable<User>;
 
   constructor(
     private auth: AngularFireAuth,
     private userService: UserService
   ) {
-    this.auth.onAuthStateChanged(user => {
-      console.log('onAuthStateChanged triggered!');
-      console.log(user);
-    });
+    this.user$ = this.auth.authState.pipe(switchMap(user => {
+      if (user) {
+        return this.userService.getUserByUid(user.uid);
+      } else return null;
+    }),
+      map(_user => {
+        if (_user?.email_verified) return _user;
+        else return null;
+      }));
   }
 
   init() {
-    this.auth.authState.subscribe(async (userFb) => {
-      console.log(userFb);
-      if (userFb) {
-        const user = await this.userService.getUserByUid(userFb.uid);
-        this.user = user.email_verified ? user : null;
-      } else {
-        this.user = null;
-      }
-    })
+    this.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
   async signOut() {
