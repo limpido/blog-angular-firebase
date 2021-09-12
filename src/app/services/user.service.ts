@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore, DocumentChangeAction} from "@angular/fire/compat/firestore";
 import {User} from "../models/user";
 import {map, first} from "rxjs/operators";
-import firebase from "firebase/compat";
 import {Observable} from "rxjs";
 
 @Injectable({
