@@ -4,4 +4,5 @@ export interface User {
   email?: string;
   email_verified?: boolean;
   profile_pic_url?: string;
+  github_link?: string;
 }
