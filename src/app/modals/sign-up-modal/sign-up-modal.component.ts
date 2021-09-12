@@ -50,7 +50,7 @@ export class SignUpModalComponent implements OnInit {
       const password = this.signUpForm.get('password')?.value.trim();
       const username = this.signUpForm.get('username')?.value.trim();
       const userCredential = await this.authService.signUpViaEmailPassword(email, password);
-      this.signUpModal.close();
+      this.signUpModal.close({submitted: true});
 
       if (userCredential) {
         console.log(userCredential);

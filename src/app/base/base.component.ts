@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {SignUpModalComponent} from "../modals/sign-up-modal/sign-up-modal.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../services/auth.service";
@@ -7,6 +7,7 @@ import {LogInModalComponent} from "../modals/log-in-modal/log-in-modal.component
 import {User} from "../models/user";
 import {UserService} from "../services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-base',
@@ -14,6 +15,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements OnInit {
+
+  user: User;
 
   constructor(
     public dialog: MatDialog,
@@ -29,9 +32,12 @@ export class BaseComponent implements OnInit {
         console.error(error);
       });
     }
+
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    console.log(this.user);
   }
 
   async signUpEmailVerified(email: string): Promise<void> {
@@ -56,9 +62,11 @@ export class BaseComponent implements OnInit {
       width: '400px',
     });
 
-    signupModal.afterClosed().subscribe(async () => {
-      console.log('sign up dialog was closed');
-      await this.router.navigate([`/sign-up-verification-email-sent`]);
+    signupModal.afterClosed().subscribe(async (res) => {
+      if (res?.submitted) {
+        console.log('sign up dialog was closed');
+        await this.router.navigate([`/sign-up-verification-email-sent`]);
+      }
     });
   }
 
@@ -67,10 +75,12 @@ export class BaseComponent implements OnInit {
       width: '400px',
     });
 
-    loginModal.afterClosed().subscribe(async result => {
+    loginModal.afterClosed().subscribe(async user => {
       console.log('log in dialog was closed');
-      console.log(result);
-      // navigate to user's home page
+      console.log(user);
+      if (user?.username) {
+        // navigate to user's home page
+      }
     })
   }
 
