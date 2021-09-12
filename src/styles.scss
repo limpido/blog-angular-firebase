@@ -1,2 +1,14 @@
+@use '~@angular/material' as mat;
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$primary-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
+
+.primary-color {
+  color: $primary-color;
+}
+
+.text-bold {
+  font-weight: bold !important;
+}
