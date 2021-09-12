@@ -1,0 +1,20 @@
+@import 'src/styles.scss';
+
+.profile-info-container {
+  width: 50%;
+
+  h4 {
+    margin-bottom: 0 !important;
+    width: 120px;
+  }
+}
+
+.mat-icon-btn {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+mat-icon {
+  color: $primary-color;
+}

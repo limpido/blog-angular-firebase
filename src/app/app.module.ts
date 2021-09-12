@@ -23,6 +23,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSnackBarModule,
     MatTabsModule,
     MatMenuModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

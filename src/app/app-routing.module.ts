@@ -18,6 +18,12 @@ const routes: Routes = [
     // guard
   },
   {
+    path: ':username/edit-profile',
+    pathMatch: 'full',
+    component: EditProfileComponent
+    // guard
+  },
+  {
     path: '**',
     pathMatch: 'full',
     component: BaseComponent

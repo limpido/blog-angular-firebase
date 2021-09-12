@@ -1,1 +1,60 @@
-<p>edit-profile works!</p>
+<div fxLayout="column" fxLayoutGap="50px">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <app-nav-bar fxFlexFill [user]="user" *ngIf="!!user"></app-nav-bar>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" *ngIf="!!user">
+    <div>
+      profile photo
+    </div>
+
+    <div class="profile-info-container" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="20px">
+      <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="40px">
+        <h4 class="primary-color text-bold">Username</h4>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+          <span *ngIf="!editUsername">{{user.username}}</span>
+          <button *ngIf="!editUsername" mat-icon-button (click)="toggleEditUsername()"><mat-icon>edit</mat-icon></button>
+
+          <mat-form-field *ngIf="editUsername" appearance="fill">
+            <input matInput [formControl]="usernameFc" type="text" [(ngModel)]="user.username">
+            <mat-error *ngIf="usernameFc.hasError('required')">username cannot be empty</mat-error>
+            <button *ngIf="!!user.username" matSuffix mat-icon-button aria-label="Clear" (click)="user.username=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <button *ngIf="editUsername" mat-icon-button (click)="saveUsername()"><mat-icon>done</mat-icon></button>
+        </div>
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="40px">
+        <h4 class="primary-color text-bold">Email</h4>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+          <span>{{user.email}}</span>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="40px">
+        <h4 class="primary-color text-bold">Github Link</h4>
+        <button *ngIf="!editGithub && !user.github_link?.length" mat-icon-button (click)="toggleEditGithub()">
+          <mat-icon>add_circle_outline</mat-icon></button>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+          <span *ngIf="!editGithub && user.github_link?.length">{{user.github_link}}</span>
+          <button *ngIf="!editGithub && user.github_link?.length" mat-icon-button (click)="toggleEditGithub()"><mat-icon>edit</mat-icon></button>
+          <mat-form-field *ngIf="editGithub" appearance="fill">
+            <input matInput [formControl]="githubFc" type="text" [(ngModel)]="user.github_link">
+            <mat-error *ngIf="githubFc.hasError('pattern')">the link is invalid</mat-error>
+            <button *ngIf="!!user.github_link" matSuffix mat-icon-button aria-label="Clear" (click)="user.github_link=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <button *ngIf="editGithub" mat-icon-button (click)="saveGithubLink()"><mat-icon>done</mat-icon></button>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
