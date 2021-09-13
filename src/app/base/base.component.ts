@@ -48,7 +48,6 @@ export class BaseComponent implements OnInit {
 
     const usersUnverified = await this.userService.getUserUnverifiedByEmail(email);
     const userUnverified: User = usersUnverified[0];
-    console.log(userUnverified);
     if (userUnverified && userUnverified.uid) {
       await Promise.all([
         this.userService.deleteUserUnverified(userUnverified.uid),
@@ -64,7 +63,6 @@ export class BaseComponent implements OnInit {
 
     signupModal.afterClosed().subscribe(async (res) => {
       if (res?.submitted) {
-        console.log('sign up dialog was closed');
         await this.router.navigate([`/sign-up-verification-email-sent`]);
       }
     });
@@ -76,7 +74,6 @@ export class BaseComponent implements OnInit {
     });
 
     loginModal.afterClosed().subscribe(async user => {
-      console.log('log in dialog was closed');
       console.log(user);
       if (user?.username) {
         // navigate to user's home page

@@ -42,7 +42,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   async saveUsername(): Promise<void> {
-    console.log(this.user.username);
     if (this.user.username.length) {
       this.toggleEditUsername();
       if (this.oriUsername !== this.user.username) {
@@ -64,7 +63,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   uploadProfilePhoto(event: any) {
-    console.log(event);
     const file = event.target.files[0];
     const uidLast4 = this.user.uid.slice(-4);
     const filePath = `images/profile_photos/${this.user.username}-${uidLast4}/${Date.now()}`;

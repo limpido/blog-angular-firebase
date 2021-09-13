@@ -53,7 +53,6 @@ export class SignUpModalComponent implements OnInit {
       this.signUpModal.close({submitted: true});
 
       if (userCredential) {
-        console.log(userCredential);
         const uid = userCredential.user!.uid;
         const user: User = {
           uid,
