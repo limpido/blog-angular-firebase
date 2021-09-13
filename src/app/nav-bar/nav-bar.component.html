@@ -6,7 +6,7 @@
 
   <div class="profile">
     <button mat-button [matMenuTriggerFor]="menu" id="profile-photo-btn">
-      <img src="assets/default-profile-photo.jpg" id="profile-photo">
+      <img src="{{user.profile_pic_url?.length ? user.profile_pic_url : 'assets/default-profile-photo.jpg'}}" id="profile-photo">
     </button>
     <mat-menu #menu="matMenu">
       <div  *ngFor="let menuItem of menuItems">

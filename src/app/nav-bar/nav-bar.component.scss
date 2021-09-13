@@ -4,8 +4,8 @@
   .profile {
     position: absolute;
     right: 3%;
-    height: 100%;
-    width: 49px;
+    height: 45px;
+    width: 45px;
 
     #profile-photo-btn {
       border-radius: 50%;
@@ -16,6 +16,8 @@
       #profile-photo {
         border-radius: 50%;
         height: 100%;
+        width: 100%;
+        object-fit: cover;
       }
     }
   }
