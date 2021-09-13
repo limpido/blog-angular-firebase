@@ -5,6 +5,7 @@ import {User} from "../models/user";
 import {first} from "rxjs/operators";
 import {FormControl, Validators} from "@angular/forms";
 import {ValidationService} from "../services/validation.service";
+import {AngularFireStorage} from "@angular/fire/compat/storage";
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,11 +20,13 @@ export class EditProfileComponent implements OnInit {
   usernameFc: FormControl;
   editGithub: boolean = false;
   githubFc: FormControl;
+  profilePhotoUploadPercentage: number;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private validationService: ValidationService
+    private validationService: ValidationService,
+    private storage: AngularFireStorage
   ) {
   }
 
@@ -58,6 +61,25 @@ export class EditProfileComponent implements OnInit {
       this.toggleEditGithub();
       await this.userService.updateUser(this.user.uid, {github_link: this.user.github_link});
     }
+  }
+
+  uploadProfilePhoto(event: any) {
+    console.log(event);
+    const file = event.target.files[0];
+    const uidLast4 = this.user.uid.slice(-4);
+    const filePath = `images/profile_photos/${this.user.username}-${uidLast4}/${Date.now()}`;
+    const task = this.storage.upload(filePath, file);
+    task.percentageChanges().subscribe((percent: number) => {
+      this.profilePhotoUploadPercentage = percent;
+    });
+    task.then(() => {
+      this.storage.ref(filePath).getDownloadURL().subscribe(async (downloadURL: string) => {
+        this.profilePhotoUploadPercentage = null;
+        this.user.profile_pic_url = downloadURL;
+        await this.userService.updateUser(this.user.uid, {profile_pic_url: downloadURL});
+      })
+    });
+
   }
 
 }
