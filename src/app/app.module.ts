@@ -25,6 +25,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { WriteBlogComponent } from './write-blog/write-blog/write-blog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     SignUpVerificationComponent,
     EditProfileComponent,
     LogInModalComponent,
-    NavBarComponent
+    NavBarComponent,
+    WriteBlogComponent
   ],
   imports: [
     BrowserModule,
