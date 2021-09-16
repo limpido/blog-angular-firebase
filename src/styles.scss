@@ -12,3 +12,7 @@ $primary-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
 .text-bold {
   font-weight: bold !important;
 }
+
+.w-100 {
+  width: 100% !important;
+}
