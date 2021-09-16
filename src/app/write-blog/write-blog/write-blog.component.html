@@ -1,1 +1,19 @@
-<p>write-blog works!</p>
+<div class="write-blog-container">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Editor" class="editor-tab" fxLayout="row" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!user" style="height: 90vh">
+        <mat-spinner class="spinner"></mat-spinner>
+      </div>
+      <app-blog-editor [user]="user" *ngIf="!!user"></app-blog-editor>
+    </mat-tab>
+    <mat-tab label="Preview">
+      <div>
+        <markdown *ngIf="blogEditor" [data]="blogEditor?.markdown"></markdown>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="button-container" fxLayout="row" fxLayoutGap="10px">
+    <button mat-button color="primary" class="nav-button" (click)="onSubmit()">Submit</button>
+    <button mat-button color="warn" class="nav-button" (click)="onExit()">Exit</button>
+  </div>
+</div>

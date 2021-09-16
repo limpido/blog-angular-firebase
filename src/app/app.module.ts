@@ -27,7 +27,8 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { WriteBlogComponent } from './write-blog/write-blog/write-blog.component';
 import { MarkdownModule } from 'ngx-markdown';
-import { BlogPreviewComponent } from './write-blog/blog-preview/blog-preview.component';
+import { BlogEditorComponent } from './write-blog/blog-editor/blog-editor.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { BlogPreviewComponent } from './write-blog/blog-preview/blog-preview.com
     LogInModalComponent,
     NavBarComponent,
     WriteBlogComponent,
-    BlogPreviewComponent
+    BlogEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +62,7 @@ import { BlogPreviewComponent } from './write-blog/blog-preview/blog-preview.com
     FormsModule,
     AngularFireStorageModule,
     MarkdownModule.forRoot(),
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

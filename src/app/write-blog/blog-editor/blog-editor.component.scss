@@ -1,0 +1,29 @@
+.blog-editor-container {
+  padding: 2rem 5rem;
+
+  textarea {
+    resize: none;
+  }
+
+  .blog-info {
+    width: 25%;
+
+    ::ng-deep .select-form-field {
+      .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+      }
+    }
+  }
+
+  .editor {
+    width: 70%;
+
+    .editor-form-field {
+      textarea {
+        height: 71vh;
+      }
+    }
+  }
+}
+
+

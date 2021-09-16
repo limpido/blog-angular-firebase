@@ -1,0 +1,10 @@
+.write-blog-container {
+  position: relative;
+
+  .button-container {
+    position: absolute;
+    right: 2rem;
+    top: 7px;
+    z-index: 5;
+  }
+}
