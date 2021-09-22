@@ -1,14 +1,28 @@
 <div class="write-blog-container">
   <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Editor" class="editor-tab" fxLayout="row" fxLayoutAlign="center center">
+    <mat-tab label="Editor" fxLayout="row" fxLayoutAlign="center center">
       <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!user" style="height: 90vh">
         <mat-spinner class="spinner"></mat-spinner>
       </div>
       <app-blog-editor [user]="user" *ngIf="!!user"></app-blog-editor>
     </mat-tab>
     <mat-tab label="Preview">
-      <div>
-        <markdown *ngIf="blogEditor" [data]="blogEditor?.markdown"></markdown>
+      <div class="preview-container" fxLayout="row" fxLayoutAlign="center start" *ngIf="blogEditor">
+        <div fxLayout="column" class="preview-col-1" fxLayoutGap="36px">
+          <div fxLayout="column" fxLayoutGap="16px">
+            <h1 class="blog-preview-title" *ngIf="blogEditor.blogInfoForm.get('title').value?.length">{{blogEditor.blogInfoForm.get('title').value.trim()}}</h1>
+            <div fxLayout="row-reverse" fxLayoutAlign="space-between center">
+              <div class="blog-preview-date" *ngIf="lastEditDate.length">Last Edited: <span>{{lastEditDate}}</span></div>
+              <div *ngIf="blogEditor.blogInfoForm.get('category').value" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                <mat-icon color="primary">category</mat-icon>
+                <span class="blog-preview-category">{{blogEditor.blogInfoForm.get('category').value.name}}</span>
+              </div>
+            </div>
+          </div>
+          <markdown class="blog-preview-content" [data]="blogEditor.markdown"></markdown>
+        </div>
+
+<!--        <div class="table-of-content" class="preview-col-2"></div>-->
       </div>
     </mat-tab>
   </mat-tab-group>

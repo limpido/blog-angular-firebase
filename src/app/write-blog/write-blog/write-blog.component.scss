@@ -7,4 +7,39 @@
     top: 7px;
     z-index: 5;
   }
+
+  .preview-container {
+    padding: 2rem 5rem;
+    .preview-col-1 {
+      width: 72%;
+
+      .blog-preview-title {
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      .blog-preview-title, .blog-preview-content {
+        color: #3b3b3b;
+      }
+
+      .blog-preview-date, .blog-preview-category {
+        color: dimgrey;
+      }
+
+      .blog-preview-content {
+        blockquote {
+          background: rgba(10,133,255,.14);
+          border-left: 4px solid #06c;
+          border-radius: 4px;
+          color: #666;
+          margin: 20px 0;
+          padding: 1px 20px;
+        }
+      }
+    }
+
+    .preview-col-2 {
+      width: 25%;
+    }
+  }
 }
