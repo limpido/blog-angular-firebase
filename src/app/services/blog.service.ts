@@ -3,6 +3,8 @@ import {AngularFirestore, DocumentChangeAction} from "@angular/fire/compat/fires
 import {Category} from "../models/category";
 import {Blog} from "../models/blog";
 import {first, map} from "rxjs/operators";
+import firebase from "firebase/compat";
+import DocumentReference = firebase.firestore.DocumentReference;
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +33,8 @@ export class BlogService {
 
   }
 
-  setBlog(blog: Blog) {
-
+  addBlog(uid: string, blog: Blog): Promise<DocumentReference<Blog>> {
+    return this.af.collection(`users/${uid}/blogs`).add(blog);
   }
 
   getAllBlogs(uid: string): Promise<Array<Blog>> {
