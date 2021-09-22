@@ -5,6 +5,8 @@
         <label>* Title</label>
         <mat-form-field appearance="outline">
           <input matInput [formControlName]="'title'" placeholder="title, length < 30">
+          <mat-error *ngIf="blogInfoForm.get('title')!.hasError('maxlength')">title length must < 30</mat-error>
+          <mat-error *ngIf="blogInfoForm.get('title')!.hasError('required')">title is required</mat-error>
         </mat-form-field>
       </div>
 
@@ -12,6 +14,8 @@
         <label>* Summary</label>
         <mat-form-field appearance="outline">
           <textarea matInput [formControlName]="'summary'" placeholder="summary, length < 60"></textarea>
+          <mat-error *ngIf="blogInfoForm.get('summary')!.hasError('maxlength')">summary length must < 60</mat-error>
+          <mat-error *ngIf="blogInfoForm.get('summary')!.hasError('required')">summary is required</mat-error>
         </mat-form-field>
       </div>
 
@@ -21,6 +25,7 @@
           <mat-select [formControlName]="'category'">
             <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
           </mat-select>
+          <mat-error *ngIf="blogInfoForm.get('category')!.hasError('required')">category is required</mat-error>
         </mat-form-field>
 
         <div class="add-category" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="6px">
@@ -34,7 +39,7 @@
       </div>
 
       <div class="upload-img">
-        <div>
+        <div class="upload-btn-container" fxLayout="row" fxLayoutAlign="center center">
           <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Upload image</button>
           <mat-progress-spinner
             *ngIf="!!imgUploadPercentage"

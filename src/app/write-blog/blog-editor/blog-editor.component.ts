@@ -34,9 +34,10 @@ export class BlogEditorComponent implements OnInit {
     console.log(this.user);
     this.markdown = this.blog?.content ?? '';
     this.blogInfoForm = this.formBuilder.group({
-      title: [this.blog?.title ?? '', [Validators.required, Validators.minLength(30)]],
-      summary: [this.blog?.summary ?? '', [Validators.required, Validators.minLength(60)]],
+      title: [this.blog?.title ?? '', [Validators.required, Validators.maxLength(30)]],
+      summary: [this.blog?.summary ?? '', [Validators.required, Validators.maxLength(60)]],
       category: [this.blog?.category ?? null, [Validators.required]],
+      image_url: [this.blog?.image_url ?? null]
     });
     this.categories = await this.blogService.getCategories(this.user.uid) ?? [];
     console.log(this.categories);
@@ -53,15 +54,9 @@ export class BlogEditorComponent implements OnInit {
     task.then(() => {
       this.storage.ref(filePath).getDownloadURL().subscribe(async (downloadURL: string) => {
         this.imgUploadPercentage = null;
-        this.blog.image_url = downloadURL;
+        this.blogInfoForm.get('image_url').setValue(downloadURL);
       })
     });
-  }
-
-  onSubmit() {
-    if (this.blogInfoForm.valid) {
-
-    }
   }
 
   toggleAddCategory(): void {

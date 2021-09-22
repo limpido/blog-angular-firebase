@@ -13,6 +13,20 @@
         padding-bottom: 0 !important;
       }
     }
+
+    .upload-img {
+      .upload-btn-container {
+        position: relative;
+        width: 100%;
+
+        .upload-progress-spinner {
+          position: absolute;
+          right: -10%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
   }
 
   .editor {
