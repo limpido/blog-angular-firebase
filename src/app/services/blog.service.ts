@@ -3,8 +3,9 @@ import {AngularFirestore, DocumentChangeAction} from "@angular/fire/compat/fires
 import {Category} from "../models/category";
 import {Blog} from "../models/blog";
 import {first, map} from "rxjs/operators";
-import firebase from "firebase/compat";
+import firebase from "firebase/compat/app";
 import DocumentReference = firebase.firestore.DocumentReference;
+import FieldValue = firebase.firestore.FieldValue;
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,21 @@ export class BlogService {
     return this.af.collection(`users/${uid}/categories`).doc(`${category.name}`).set(category);
   }
 
-  getCategories(uid: string): Promise<Array<Category>> {
+  updateCategory(uid: string, categoryName: string, data: Category | any): Promise<void> {
+    return this.af.doc(`users/${uid}/categories/${categoryName}`).update(data);
+  }
+
+  async incrementCategoryBlogNumber(uid: string, categoryName: string): Promise<void> {
+    await this.updateCategory(uid, categoryName, {blog_number: FieldValue.increment(1)});
+  }
+
+  getCategoryByCategoryName(uid: string, categoryName: string) {
+    return this.af.doc(`users/${uid}/categories/${categoryName}`).ref.get().then((docSnapshot) => {
+      return docSnapshot.data();
+    });
+  }
+
+  getAllCategories(uid: string): Promise<Array<Category>> {
     return this.af.collection(`users/${uid}/categories`).snapshotChanges()
       .pipe(map((docs: DocumentChangeAction<any>[]) =>
         docs.map((a: DocumentChangeAction<any>) => {
