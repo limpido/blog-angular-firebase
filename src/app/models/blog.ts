@@ -1,5 +1,7 @@
+import {Category} from "./category";
+
 export interface Blog {
-  category_name?: string;
+  category?: Category;
   title?: string;
   summary?: string;
   image_url?: string;
