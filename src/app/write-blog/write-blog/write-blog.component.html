@@ -9,15 +9,18 @@
     <mat-tab label="Preview">
       <div class="preview-container" fxLayout="row" fxLayoutAlign="center start" *ngIf="blogEditor">
         <div fxLayout="column" class="preview-col-1" fxLayoutGap="36px">
-          <div fxLayout="column" fxLayoutGap="16px">
-            <h1 class="blog-preview-title" *ngIf="blogEditor.blogInfoForm.get('title').value?.length">{{blogEditor.blogInfoForm.get('title').value.trim()}}</h1>
+          <div fxLayout="column" fxLayoutGap="20px">
+            <div *ngIf="blogEditor.blogInfoForm.get('image_url').value">
+              <img class="blog-preview-img" src="{{blogEditor.blogInfoForm.get('image_url').value}}">
+            </div>
             <div fxLayout="row-reverse" fxLayoutAlign="space-between center">
               <div class="blog-preview-date" *ngIf="lastEditDate.length">Last Edited: <span>{{lastEditDate}}</span></div>
-              <div *ngIf="blogEditor.blogInfoForm.get('category').value" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+              <div *ngIf="blogEditor.blogInfoForm.get('category').value?.name" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
                 <mat-icon color="primary">category</mat-icon>
                 <span class="blog-preview-category">{{blogEditor.blogInfoForm.get('category').value.name}}</span>
               </div>
             </div>
+            <h1 class="blog-preview-title" *ngIf="blogEditor.blogInfoForm.get('title').value?.length">{{blogEditor.blogInfoForm.get('title').value.trim()}}</h1>
           </div>
           <markdown class="blog-preview-content" [data]="blogEditor.markdown"></markdown>
         </div>

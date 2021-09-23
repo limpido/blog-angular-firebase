@@ -21,9 +21,17 @@
 
         .upload-progress-spinner {
           position: absolute;
-          right: -10%;
+          right: -3%;
           top: 50%;
           transform: translate(-50%, -50%);
+        }
+      }
+
+      .blog-img-container {
+        .blog-img {
+          width: 100%;
+          height: 100px;
+          object-fit: cover;
         }
       }
     }

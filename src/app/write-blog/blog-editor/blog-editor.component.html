@@ -39,18 +39,22 @@
       </div>
 
       <div class="upload-img">
-        <div class="upload-btn-container" fxLayout="row" fxLayoutAlign="center center">
-          <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Upload image</button>
+        <div class="upload-btn-container" fxLayout="row" fxLayoutAlign="center center" *ngIf="!blogInfoForm.get('image_url').value">
+          <button type="button" mat-raised-button color="primary" [disabled]="!!imgUploadPercentage" (click)="fileInput.click()">Upload image</button>
           <mat-progress-spinner
             *ngIf="!!imgUploadPercentage"
             class="upload-progress-spinner"
             [color]="'primary'"
             [mode]="'determinate'"
             [value]="imgUploadPercentage"
-            [diameter]="25">
+            [diameter]="20">
           </mat-progress-spinner>
         </div>
         <input hidden (change)="uploadImage($event)" #fileInput type="file" id="file">
+        <div class="blog-img-container" *ngIf="blogInfoForm.get('image_url').value" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <img class="blog-img" src="{{blogInfoForm.get('image_url').value}}">
+          <button type="button" mat-raised-button color="warn" (click)="deleteImage()">Delete image</button>
+        </div>
       </div>
 
     </form>

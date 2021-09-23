@@ -4,8 +4,8 @@ import {first} from "rxjs/operators";
 import {AuthService} from "../../services/auth.service";
 import {BlogEditorComponent} from "../blog-editor/blog-editor.component";
 import {Blog} from "../../models/blog";
-import {Category} from "../../models/category";
 import {BlogService} from "../../services/blog.service";
+import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-write-blog',
@@ -21,7 +21,8 @@ export class WriteBlogComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    private blogService: BlogService
+    private blogService: BlogService,
+    private snackBar: MatSnackBar,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -42,10 +43,9 @@ export class WriteBlogComponent implements OnInit {
     blogInfoForm.markAllAsTouched();
 
     if (blogInfoForm.valid) {
-      //TODO: update category: blog_number ++
       const cat = blogInfoForm.get('category').value;
       const blog: Blog = {
-        category_name: cat.name,
+        category: {name: cat.name},
         title: blogInfoForm.get('title').value.trim(),
         summary: blogInfoForm.get('summary').value.trim(),
         image_url: blogInfoForm.get('image_url').value,
@@ -53,7 +53,19 @@ export class WriteBlogComponent implements OnInit {
         last_edited_timestamp: Date.now()
       }
       console.log(blog);
-      await this.blogService.addBlog(this.user.uid, blog);
+      await Promise.all([
+        this.blogService.addBlog(this.user.uid, blog),
+        this.blogService.incrementCategoryBlogNumber(this.user.uid, cat.name)
+      ]);
+      // TODO: navigate to view blog page
+    } else {
+      const blogInfoFormInvalidMessage = `You have unfilled fields`;
+      const config = {
+        horizontalPosition: 'end' as MatSnackBarHorizontalPosition,
+        verticalPosition: 'top' as MatSnackBarVerticalPosition,
+        duration: 3000
+      };
+      this.snackBar.open(blogInfoFormInvalidMessage, 'OK', config);
     }
   }
 
