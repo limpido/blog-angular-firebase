@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import {User} from "../models/user";
 import {UserService} from "./user.service";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {map, switchMap} from 'rxjs/operators';
 
 @Injectable({
@@ -21,11 +21,11 @@ export class AuthService {
     this.user$ = this.auth.authState.pipe(switchMap(user => {
       if (user) {
         return this.userService.getUserByUid(user.uid);
-      } else return null;
+      } else return of(null);
     }),
       map(_user => {
         if (_user?.email_verified) return _user;
-        else return null;
+        else return of(null);
       }));
   }
 
