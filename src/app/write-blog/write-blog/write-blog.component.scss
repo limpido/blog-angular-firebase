@@ -10,8 +10,15 @@
 
   .preview-container {
     padding: 1rem 5rem;
+
     .preview-col-1 {
       width: 55%;
+
+      .back-to-top-button {
+        position: fixed;
+        bottom: 12%;
+        right: 12%;
+      }
 
       .blog-preview-img {
         width: 100%;

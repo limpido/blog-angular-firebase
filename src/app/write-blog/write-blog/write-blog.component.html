@@ -23,6 +23,10 @@
             <h1 class="blog-preview-title" *ngIf="blogEditor.blogInfoForm.get('title').value?.length">{{blogEditor.blogInfoForm.get('title').value.trim()}}</h1>
           </div>
           <markdown class="blog-preview-content" [data]="blogEditor.markdown"></markdown>
+
+          <button mat-fab color="primary" class="back-to-top-button" *ngIf="pageYOffset > 400" (click)="scrollToTop()">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </button>
         </div>
 
 <!--        <div class="table-of-content" class="preview-col-2"></div>-->

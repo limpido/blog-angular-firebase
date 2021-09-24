@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {User} from "../../models/user";
 import {first} from "rxjs/operators";
 import {AuthService} from "../../services/auth.service";
@@ -6,6 +6,7 @@ import {BlogEditorComponent} from "../blog-editor/blog-editor.component";
 import {Blog} from "../../models/blog";
 import {BlogService} from "../../services/blog.service";
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
+import {ViewportScroller} from "@angular/common";
 
 @Component({
   selector: 'app-write-blog',
@@ -18,11 +19,17 @@ export class WriteBlogComponent implements OnInit {
   @ViewChild(BlogEditorComponent) blogEditor: BlogEditorComponent;
   lastEditDate: string;
 
+  pageYOffset: number;
+  @HostListener('window:scroll', ['$event']) onScroll(){
+    this.pageYOffset = window.pageYOffset;
+  }
+
   constructor(
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
     private blogService: BlogService,
     private snackBar: MatSnackBar,
+    private scroll: ViewportScroller
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -37,6 +44,9 @@ export class WriteBlogComponent implements OnInit {
     this.lastEditDate = `${year}-${month}-${day}`;
   }
 
+  scrollToTop() {
+    this.scroll.scrollToPosition([0,0]);
+  }
 
   async onSubmit(): Promise<void> {
     const blogInfoForm = this.blogEditor.blogInfoForm;
