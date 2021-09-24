@@ -12,3 +12,16 @@ $primary-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
 .text-bold {
   font-weight: bold !important;
 }
+
+.w-100 {
+  width: 100% !important;
+}
+
+//blockquote {
+//  background: rgba(10,133,255,.14);
+//  border-left: 4px solid #06c;
+//  border-radius: 4px;
+//  color: #666;
+//  margin: 20px 0;
+//  padding: 1px 20px;
+//}
