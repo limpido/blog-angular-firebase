@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {BaseComponent} from "./base/base.component";
 import {SignUpVerificationComponent} from "./sign-up-verification/sign-up-verification.component";
 import {EditProfileComponent} from "./edit-profile/edit-profile.component";
+import {WriteBlogComponent} from "./write-blog/write-blog/write-blog.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,12 @@ const routes: Routes = [
     path: ':username/edit-profile',
     pathMatch: 'full',
     component: EditProfileComponent
+    // guard
+  },
+  {
+    path: ':username/write',
+    pathMatch: 'full',
+    component: WriteBlogComponent
     // guard
   },
   {

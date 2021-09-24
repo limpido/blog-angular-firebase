@@ -1,0 +1,69 @@
+<div class="blog-editor-container" fxLayout="row" fxLayoutAlign="space-between start">
+  <div class="blog-info">
+    <form [formGroup]="blogInfoForm" fxLayout="column">
+      <div fxLayout="column" fxLayoutGap="6px">
+        <label>* Title</label>
+        <mat-form-field appearance="outline">
+          <input matInput [formControlName]="'title'" placeholder="title, length < 30">
+          <mat-error *ngIf="blogInfoForm.get('title')!.hasError('maxlength')">title length must < 30</mat-error>
+          <mat-error *ngIf="blogInfoForm.get('title')!.hasError('required')">title is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutGap="6px">
+        <label>* Summary</label>
+        <mat-form-field appearance="outline">
+          <textarea matInput [formControlName]="'summary'" placeholder="summary, length < 60"></textarea>
+          <mat-error *ngIf="blogInfoForm.get('summary')!.hasError('maxlength')">summary length must < 60</mat-error>
+          <mat-error *ngIf="blogInfoForm.get('summary')!.hasError('required')">summary is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="select-category" style="margin-bottom: 20px;">
+        <mat-form-field appearance="outline" class="select-form-field w-100">
+          <mat-label>Select a category</mat-label>
+          <mat-select [formControlName]="'category'">
+            <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="blogInfoForm.get('category')!.hasError('required')">category is required</mat-error>
+        </mat-form-field>
+
+        <div class="add-category" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="6px">
+          <button type="button" mat-button color="primary" (click)="toggleAddCategory()">+ Add new category</button>
+          <div *ngIf="showAddCategory" fxLayout="row" fxLayoutGap="8px">
+            <input matInput appearance="outline" placeholder="new category" [(ngModel)]="newCategoryName" [ngModelOptions]="{standalone: true}">
+            <mat-error *ngIf="showCategoryExistedError">category already existed</mat-error>
+            <button type="button" mat-raised-button color="primary" (click)="addCategory(newCategoryName)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="upload-img">
+        <div class="upload-btn-container" fxLayout="row" fxLayoutAlign="center center" *ngIf="!blogInfoForm.get('image_url').value">
+          <button type="button" mat-raised-button color="primary" [disabled]="!!imgUploadPercentage" (click)="fileInput.click()">Upload image</button>
+          <mat-progress-spinner
+            *ngIf="!!imgUploadPercentage"
+            class="upload-progress-spinner"
+            [color]="'primary'"
+            [mode]="'determinate'"
+            [value]="imgUploadPercentage"
+            [diameter]="20">
+          </mat-progress-spinner>
+        </div>
+        <input hidden (change)="uploadImage($event)" #fileInput type="file" id="file">
+        <div class="blog-img-container" *ngIf="blogInfoForm.get('image_url').value" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <img class="blog-img" src="{{blogInfoForm.get('image_url').value}}">
+          <button type="button" mat-raised-button color="warn" (click)="deleteImage()">Delete image</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="editor">
+    <mat-form-field appearance="outline" class="editor-form-field w-100">
+      <textarea matInput [(ngModel)]="markdown"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+

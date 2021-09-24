@@ -1,5 +1,5 @@
 <div class="nav-bar-container" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
-  <nav mat-tab-nav-bar *ngIf="!!tabs.length">
+  <nav mat-tab-nav-bar *ngIf="!!tabs.length" class="w-100" mat-align-tabs="center">
     <a mat-tab-link *ngFor="let tab of tabs" (click)="selectTab(tab)" [active]="activeTab == tab">
       {{tab.name}}</a>
   </nav>

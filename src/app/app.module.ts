@@ -25,6 +25,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { WriteBlogComponent } from './write-blog/write-blog/write-blog.component';
+import { MarkdownModule } from 'ngx-markdown';
+import { BlogEditorComponent } from './write-blog/blog-editor/blog-editor.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     SignUpVerificationComponent,
     EditProfileComponent,
     LogInModalComponent,
-    NavBarComponent
+    NavBarComponent,
+    WriteBlogComponent,
+    BlogEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     MatTabsModule,
     MatMenuModule,
     FormsModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    MarkdownModule.forRoot(),
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
