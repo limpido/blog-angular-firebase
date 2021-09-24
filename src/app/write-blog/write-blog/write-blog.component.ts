@@ -7,6 +7,7 @@ import {Blog} from "../../models/blog";
 import {BlogService} from "../../services/blog.service";
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
 import {ViewportScroller} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-write-blog',
@@ -29,7 +30,8 @@ export class WriteBlogComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private blogService: BlogService,
     private snackBar: MatSnackBar,
-    private scroll: ViewportScroller
+    private scroll: ViewportScroller,
+    private router: Router,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -79,8 +81,10 @@ export class WriteBlogComponent implements OnInit {
     }
   }
 
-  onExit() {
-
+  async onExit() {
+    const res = window.confirm('Exit? Your changes will be discarded.');
+    if (res) {
+      await this.router.navigate([`/${this.user.username}`]);
+    }
   }
-
 }

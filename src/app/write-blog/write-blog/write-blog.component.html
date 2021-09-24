@@ -33,7 +33,7 @@
       </div>
     </mat-tab>
   </mat-tab-group>
-  <div class="button-container" fxLayout="row" fxLayoutGap="10px">
+  <div class="button-container" fxLayout="row" fxLayoutGap="10px" *ngIf="!!user">
     <button mat-button color="primary" class="nav-button" (click)="onSubmit()">Submit</button>
     <button mat-button color="warn" class="nav-button" (click)="onExit()">Exit</button>
   </div>
