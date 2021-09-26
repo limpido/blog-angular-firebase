@@ -4,6 +4,7 @@ import {BaseComponent} from "./base/base.component";
 import {SignUpVerificationComponent} from "./sign-up-verification/sign-up-verification.component";
 import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {WriteBlogComponent} from "./write-blog/write-blog/write-blog.component";
+import {CategoriesComponent} from "./categories/categories.component";
 
 const routes: Routes = [
   {
@@ -28,6 +29,12 @@ const routes: Routes = [
     path: ':username/write',
     pathMatch: 'full',
     component: WriteBlogComponent
+    // guard
+  },
+  {
+    path: ':username/categories',
+    pathMatch: 'full',
+    component: CategoriesComponent
     // guard
   },
   {

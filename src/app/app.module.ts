@@ -29,6 +29,7 @@ import { WriteBlogComponent } from './write-blog/write-blog/write-blog.component
 import { MarkdownModule } from 'ngx-markdown';
 import { BlogEditorComponent } from './write-blog/blog-editor/blog-editor.component';
 import {MatSelectModule} from '@angular/material/select';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {MatSelectModule} from '@angular/material/select';
     LogInModalComponent,
     NavBarComponent,
     WriteBlogComponent,
-    BlogEditorComponent
+    BlogEditorComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
