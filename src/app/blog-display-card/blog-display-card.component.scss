@@ -1,0 +1,38 @@
+.blog-display-card {
+  border: 1px solid rgba(229, 229, 229, 0.8);
+  height: 200px;
+  //width: 600px;
+
+  .blog-img-container {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+
+    .blog-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .blog-info-container {
+    width: 50%;
+    height: 100%;
+    padding: 20px 32px;
+
+    .blog-title {
+    }
+
+    .secondary-text {
+      color: #666666;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    .blog-img {
+      transform: scale(1.5);
+    }
+  }
+}

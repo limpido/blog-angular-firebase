@@ -1,1 +1,15 @@
-<p>blog-display-card works!</p>
+<div class="blog-display-card" fxLayout="row" fxLayoutAlign="start start">
+  <div class="blog-img-container" fxLayout="row" fxLayoutAlign="start center">
+    <img class="blog-img" src="{{blog.image_url}}">
+  </div>
+
+  <div class="blog-info-container" fxLayout="column" fxLayoutAlign="space-between start">
+    <div fxLayout="column" fxLayoutGap="10px">
+      <h2 class="text-bold">{{blog.title}}</h2>
+      <div class="secondary-text"><span>{{blog.summary}}</span></div>
+    </div>
+    <div fxLayout="row" class="secondary-text">
+      <div><span>{{lastEditDate}}</span></div>
+    </div>
+  </div>
+</div>
