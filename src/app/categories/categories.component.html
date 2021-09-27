@@ -1,1 +1,36 @@
-<p>categories works!</p>
+<div fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <app-nav-bar fxFlexFill [user]="user" *ngIf="!!user"></app-nav-bar>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="8%" class="category-blog-container" *ngIf="categories && allBlogs">
+    <div fxLayout="column" class="categories">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <h3 class="primary-color category-title">CATEGORIES</h3>
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="select-category-option"
+             (click)="selectCategory()" [ngClass]="!selectedCategory ? 'selected' : ''">
+          <div>All</div>
+          <div>{{allBlogs.length}}</div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div *ngFor="let category of categories">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="select-category-option"
+             (click)="selectCategory(category)" [ngClass]="selectedCategory == category ? 'selected' : ''">
+          <div>{{category.name}}</div>
+          <div>{{category.blog_number}}</div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="20px">
+      <div *ngFor="let blog of selectedBlogs">
+        <app-blog-display-card [blog]="blog" class="w-100" (click)="selectBlog(blog)"></app-blog-display-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -30,6 +30,9 @@ import { MarkdownModule } from 'ngx-markdown';
 import { BlogEditorComponent } from './write-blog/blog-editor/blog-editor.component';
 import {MatSelectModule} from '@angular/material/select';
 import { CategoriesComponent } from './categories/categories.component';
+import {MatDividerModule} from '@angular/material/divider';
+import { BlogDisplayCardComponent } from './blog-display-card/blog-display-card.component';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { CategoriesComponent } from './categories/categories.component';
     NavBarComponent,
     WriteBlogComponent,
     BlogEditorComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    BlogDisplayCardComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +68,9 @@ import { CategoriesComponent } from './categories/categories.component';
     FormsModule,
     AngularFireStorageModule,
     MarkdownModule.forRoot(),
-    MatSelectModule
+    MatSelectModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

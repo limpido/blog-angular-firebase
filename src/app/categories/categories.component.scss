@@ -1,0 +1,27 @@
+@import 'src/styles.scss';
+
+.categories {
+  min-width: 200px;
+}
+
+.select-category-option {
+  padding: 10px 10px;
+
+  &:hover {
+    cursor: pointer;
+    color: $primary-color;
+  }
+}
+
+.category-title {
+  margin-bottom: 10px !important;
+}
+
+.category-blog-container {
+  padding: 50px 12%;
+}
+
+.selected {
+  color: $primary-color;
+  font-weight: bold;
+}
