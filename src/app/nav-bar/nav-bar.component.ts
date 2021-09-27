@@ -13,6 +13,11 @@ interface MenuItem {
   route: string;
 }
 
+export enum Tabs {
+  home,
+  category
+}
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -22,6 +27,7 @@ interface MenuItem {
 export class NavBarComponent implements OnInit {
 
   @Input() user: User;
+  @Input() activeTabIndex: number;
 
   activeTab: Tab;
   tabs: Array<Tab> = [];
@@ -42,7 +48,7 @@ export class NavBarComponent implements OnInit {
         route: `${this.user?.username}/categories`
       }
     ];
-    this.activeTab = this.tabs[0];
+    this.activeTab = this.activeTabIndex ? this.tabs[this.activeTabIndex] : this.tabs[Tabs.home];
 
     this.menuItems = [
       {

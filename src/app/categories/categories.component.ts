@@ -6,6 +6,7 @@ import {Category} from "../models/category";
 import {BlogService} from "../services/blog.service";
 import {Blog} from "../models/blog";
 import {Router} from "@angular/router";
+import {Tabs} from "../nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-categories',
@@ -19,6 +20,7 @@ export class CategoriesComponent implements OnInit {
   selectedCategory: Category;
   allBlogs: Array<Blog>;
   selectedBlogs: Array<Blog>;
+  tabs = Tabs;
 
   constructor(
     private authService: AuthService,
