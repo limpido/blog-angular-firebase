@@ -63,9 +63,12 @@ export class BlogService {
   }
 
   getBlogsByCategory(uid: string, categoryName: string): Promise<Array<Blog>> {
+    const category: Category = {
+      name: categoryName
+    };
     return this.af.collection(`users/${uid}/blogs`, ref => {
       return ref
-        .where('category_name', '==', categoryName);
+        .where('category', '==', category);
     }).snapshotChanges().pipe(map((docs: DocumentChangeAction<any>[]) =>
       docs.map((a: DocumentChangeAction<any>) => {
         const data = a.payload.doc.data();
