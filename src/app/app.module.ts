@@ -33,6 +33,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import {MatDividerModule} from '@angular/material/divider';
 import { BlogDisplayCardComponent } from './blog-display-card/blog-display-card.component';
 import {MatListModule} from '@angular/material/list';
+import { ViewBlogComponent } from './view-blog/view-blog.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {MatListModule} from '@angular/material/list';
     WriteBlogComponent,
     BlogEditorComponent,
     CategoriesComponent,
-    BlogDisplayCardComponent
+    BlogDisplayCardComponent,
+    ViewBlogComponent
   ],
   imports: [
     BrowserModule,

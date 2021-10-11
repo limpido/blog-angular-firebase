@@ -1,0 +1,29 @@
+<div class="view-blog-container" *ngIf="blog" fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center" class="author-info">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <img class="profile-photo" src="{{author.profile_pic_url?.length ? author.profile_pic_url : 'assets/default-profile-photo.jpg'}}">
+    </div>
+    <div>{{author.username}}</div>
+  </div>
+
+  <div fxLayout="column" class="view-blog" fxLayoutGap="36px">
+    <div fxLayout="column" fxLayoutGap="20px">
+      <div *ngIf="blog.image_url.length">
+        <img class="blog-preview-img" src="{{blog.image_url}}">
+      </div>
+      <div fxLayout="row-reverse" fxLayoutAlign="space-between center">
+        <div class="blog-preview-date" *ngIf="lastEditDate.length">Last Edited: <span>{{lastEditDate}}</span></div>
+        <div *ngIf="blog.category.name" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <mat-icon color="primary">category</mat-icon>
+          <span class="blog-preview-category">{{blog.category.name}}</span>
+        </div>
+      </div>
+      <h1 class="blog-preview-title" *ngIf="blog.title">{{blog.title}}</h1>
+    </div>
+    <markdown class="blog-preview-content" [data]="blog.content"></markdown>
+
+    <button mat-fab color="primary" class="back-to-top-button" *ngIf="pageYOffset > 400" (click)="scrollToTop()">
+      <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+  </div>
+</div>

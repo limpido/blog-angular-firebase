@@ -52,6 +52,12 @@ export class BlogService {
     return this.af.collection(`users/${uid}/blogs`).add(blog);
   }
 
+  getBlogById(uid: string, blogId: string) {
+    return this.af.doc(`users/${uid}/blogs/${blogId}`).ref.get().then((docSnapshot) => {
+      return docSnapshot.data();
+    });
+  }
+
   getAllBlogs(uid: string): Promise<Array<Blog>> {
     return this.af.collection(`users/${uid}/blogs`).snapshotChanges()
       .pipe(map((docs: DocumentChangeAction<any>[]) =>

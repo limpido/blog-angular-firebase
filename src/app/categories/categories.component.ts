@@ -44,8 +44,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   async selectBlog(blog: Blog) {
-    // TODO: navigate to view blog page
-    // await this.router.navigate([`/`]);
+    await this.router.navigate([`/blog/${this.user.uid}/${blog.docId}`]);
   }
 
 }
