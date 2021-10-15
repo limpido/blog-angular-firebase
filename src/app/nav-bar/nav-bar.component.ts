@@ -41,7 +41,7 @@ export class NavBarComponent implements OnInit {
     this.tabs = [
       {
         name: 'Home',
-        route: `${this.user?.username}/home`
+        route: `${this.user?.uid}`
       },
       {
         name: 'Categories',
