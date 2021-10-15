@@ -6,6 +6,7 @@ import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {WriteBlogComponent} from "./write-blog/write-blog/write-blog.component";
 import {CategoriesComponent} from "./categories/categories.component";
 import {ViewBlogComponent} from "./view-blog/view-blog.component";
+import {HomeComponent} from "./home/home.component";
 
 const routes: Routes = [
   {
@@ -36,6 +37,12 @@ const routes: Routes = [
     path: ':username/categories',
     pathMatch: 'full',
     component: CategoriesComponent
+    // guard
+  },
+  {
+    path: ':uid',
+    pathMatch: 'full',
+    component: HomeComponent
     // guard
   },
   {

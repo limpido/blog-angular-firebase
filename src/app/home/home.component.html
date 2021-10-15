@@ -1,1 +1,28 @@
-<p>home works!</p>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <app-nav-bar fxFlexFill [user]="user" [activeTabIndex]="tabs.home" *ngIf="!!user"></app-nav-bar>
+</div>
+
+<div class="home-container" fxLayout="row" fxLayoutAlign="start center">
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start center" class="author-profile" *ngIf="!!author">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <img class="profile-photo" src="{{author.profile_pic_url?.length ? author.profile_pic_url : 'assets/default-profile-photo.jpg'}}">
+    </div>
+    <div class="author-username">{{author.username}}</div>
+    <div fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center center" *ngIf="author.email">
+      <mat-icon>contact_mail</mat-icon>
+      <div>{{author.email}}</div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center center" *ngIf="author.github_link">
+      <img class="github-logo" src="assets/github-logo.png">
+      <div>{{author.github_link}}</div>
+    </div>
+  </div>
+
+  <div class="blogs" *ngIf="blogs?.length > 0" fxLayout="column" fxLayoutGap="20px">
+    <div *ngFor="let blog of blogs">
+      <app-blog-display-card [blog]="blog" class="w-100" (click)="selectBlog(blog)"></app-blog-display-card>
+    </div>
+  </div>
+
+  <div *ngIf="!blogs?.length"></div>
+</div>

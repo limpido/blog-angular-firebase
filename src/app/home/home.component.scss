@@ -1,0 +1,33 @@
+@import 'src/styles.scss';
+
+.home-container {
+  padding: 50px 15%;
+
+  .author-profile {
+    position: fixed;
+    left: 10%;
+    top: 30%;
+    color: rgb(149,149,149);
+
+    .profile-photo {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author-username {
+      font-size: 16px;
+      color: $black;
+    }
+
+    .github-logo {
+      width: 24px;
+    }
+  }
+
+  .blogs {
+    margin-left: 30%;
+    width: 70%;
+  }
+}
