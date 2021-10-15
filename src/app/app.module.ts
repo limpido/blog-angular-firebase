@@ -34,6 +34,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { BlogDisplayCardComponent } from './blog-display-card/blog-display-card.component';
 import {MatListModule} from '@angular/material/list';
 import { ViewBlogComponent } from './view-blog/view-blog.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ViewBlogComponent } from './view-blog/view-blog.component';
     BlogEditorComponent,
     CategoriesComponent,
     BlogDisplayCardComponent,
-    ViewBlogComponent
+    ViewBlogComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
