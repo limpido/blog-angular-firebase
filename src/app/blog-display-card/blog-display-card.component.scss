@@ -1,7 +1,10 @@
+@import 'src/styles.scss';
+
 .blog-display-card {
   border: 1px solid rgba(229, 229, 229, 0.8);
   height: 200px;
   //width: 600px;
+  color: $black;
 
   .blog-img-container {
     width: 50%;
