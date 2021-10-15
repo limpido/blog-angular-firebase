@@ -4,6 +4,7 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 $primary-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
+$black: #3b3b3b;
 
 .primary-color {
   color: $primary-color;
