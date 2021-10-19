@@ -1,11 +1,12 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {Blog} from "../models/blog";
 import {ViewportScroller} from "@angular/common";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {BlogService} from "../services/blog.service";
 import {User} from "../models/user";
 import {UserService} from "../services/user.service";
 import {first} from "rxjs/operators";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-preview-blog',
@@ -14,9 +15,11 @@ import {first} from "rxjs/operators";
 })
 export class ViewBlogComponent implements OnInit {
 
+  user: User;
   blog: Blog;
   author: User;
   lastEditDate: string;
+  blogId: string;
 
   pageYOffset: number;
   @HostListener('window:scroll', ['$event']) onScroll(){
@@ -27,16 +30,21 @@ export class ViewBlogComponent implements OnInit {
     private scroll: ViewportScroller,
     private route: ActivatedRoute,
     private blogService: BlogService,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router,
   ) {
     console.log(this.route.snapshot.url);
   }
 
   async ngOnInit(): Promise<void> {
-    const uid = this.route.snapshot.url[1].path;
-    const blogId = this.route.snapshot.url[2].path;
-    this.blog = await this.blogService.getBlogById(uid, blogId);
-    this.author = await this.userService.getUserByUid(uid).pipe(first()).toPromise();
+    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    const uid = this.route.snapshot.url[0].path;
+    this.blogId = this.route.snapshot.url[2].path;
+    await Promise.all([
+      this.blog = await this.blogService.getBlogById(uid, this.blogId),
+      this.author = await this.userService.getUserByUid(uid).pipe(first()).toPromise()
+    ]);
     console.log(this.blog);
 
     const timeStamp = new Date(this.blog.last_edited_timestamp);
@@ -48,5 +56,9 @@ export class ViewBlogComponent implements OnInit {
 
   scrollToTop() {
     this.scroll.scrollToPosition([0,0]);
+  }
+
+  async editBlog() {
+    await this.router.navigate([`${this.user.uid}/write`, {blogId: this.blogId}]);
   }
 }

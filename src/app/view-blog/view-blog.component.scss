@@ -1,5 +1,17 @@
 @import 'src/styles.scss';
 
+.nav-container {
+  position: relative;
+  z-index: 1;
+
+  .button-container {
+    position: absolute;
+    top: 7px;
+    right: 90px;
+    z-index: 2;
+  }
+}
+
 .view-blog-container {
   padding: 3rem 7rem;
 
@@ -34,7 +46,6 @@
     .blog-preview-title {
       font-size: 32px;
       font-weight: bold;
-      margin-bottom: 0 !important;
     }
 
     .blog-preview-title, .blog-preview-content {

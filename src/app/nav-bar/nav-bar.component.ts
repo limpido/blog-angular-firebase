@@ -48,7 +48,7 @@ export class NavBarComponent implements OnInit {
         route: `${this.user?.uid}/categories`
       }
     ];
-    this.activeTab = this.activeTabIndex ? this.tabs[this.activeTabIndex] : this.tabs[Tabs.home];
+    this.activeTab = this.activeTabIndex ? this.tabs[this.activeTabIndex] : null;
 
     this.menuItems = [
       {

@@ -4,7 +4,7 @@
       <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!user" style="height: 90vh">
         <mat-spinner class="spinner"></mat-spinner>
       </div>
-      <app-blog-editor [user]="user" *ngIf="!!user"></app-blog-editor>
+      <app-blog-editor [user]="user" [blog]="blog" *ngIf="isReady"></app-blog-editor>
     </mat-tab>
     <mat-tab label="Preview">
       <div class="preview-container" fxLayout="row" fxLayoutAlign="center start" *ngIf="blogEditor">

@@ -83,8 +83,8 @@ export class BlogService {
       }))).pipe(first()).toPromise();
   }
 
-  updateBlog() {
-
+  updateBlog(uid: string, blogId: string, data: Blog | any): Promise<void> {
+    return this.af.doc(`users/${uid}/blogs/${blogId}`).update(data);
   }
 
   deleteBlog() {

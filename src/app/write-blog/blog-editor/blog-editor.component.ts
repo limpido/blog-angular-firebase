@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Form, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../models/user";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {Category} from "../../models/category";
@@ -22,6 +22,8 @@ export class BlogEditorComponent implements OnInit {
   newCategoryName: string = '';
   showCategoryExistedError: boolean = false;
   markdown: string;
+  selectedCategory: Category;
+  categoryFc: FormControl;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,8 +33,8 @@ export class BlogEditorComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    console.log(this.user);
     this.markdown = this.blog?.content ?? '';
+    console.log(this.blog);
     this.blogInfoForm = this.formBuilder.group({
       title: [this.blog?.title ?? '', [Validators.required, Validators.maxLength(30)]],
       summary: [this.blog?.summary ?? '', [Validators.required, Validators.maxLength(60)]],
@@ -40,7 +42,13 @@ export class BlogEditorComponent implements OnInit {
       image_url: [this.blog?.image_url ?? null]
     });
     this.categories = await this.blogService.getAllCategories(this.user.uid) ?? [];
-    console.log(this.categories);
+    this.selectedCategory = this.blog?.category ? this.categories.filter(cat => cat.name == this.blog.category.name)[0] : null;
+    console.log(this.selectedCategory);
+    this.categoryFc = this.blogInfoForm.get('category') as FormControl;
+  }
+
+  get category(): FormControl {
+    return this.blogInfoForm.get('category') as FormControl;
   }
 
   uploadImage(event: any): void {

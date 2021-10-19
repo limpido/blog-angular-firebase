@@ -22,7 +22,7 @@
       <div class="select-category" style="margin-bottom: 20px;">
         <mat-form-field appearance="outline" class="select-form-field w-100">
           <mat-label>Select a category</mat-label>
-          <mat-select [formControlName]="'category'">
+          <mat-select [formControl]="category">
             <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
           </mat-select>
           <mat-error *ngIf="blogInfoForm.get('category')!.hasError('required')">category is required</mat-error>
