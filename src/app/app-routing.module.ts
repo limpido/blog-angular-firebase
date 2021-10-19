@@ -22,33 +22,33 @@ const routes: Routes = [
     // guard
   },
   {
-    path: ':username/edit-profile',
+    path: ':uid/edit-profile',
     pathMatch: 'full',
     component: EditProfileComponent
     // guard
   },
   {
-    path: ':username/write',
+    path: ':uid/write',
     pathMatch: 'full',
     component: WriteBlogComponent
     // guard
   },
   {
-    path: ':username/categories',
+    path: ':uid/categories',
     pathMatch: 'full',
     component: CategoriesComponent
+    // guard
+  },
+  {
+    path: ':uid/blog/:blogId',
+    pathMatch: 'full',
+    component: ViewBlogComponent
     // guard
   },
   {
     path: ':uid',
     pathMatch: 'full',
     component: HomeComponent
-    // guard
-  },
-  {
-    path: 'blog/:uid/:blogId',
-    pathMatch: 'full',
-    component: ViewBlogComponent
     // guard
   },
   {

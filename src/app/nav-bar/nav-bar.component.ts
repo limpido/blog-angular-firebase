@@ -45,7 +45,7 @@ export class NavBarComponent implements OnInit {
       },
       {
         name: 'Categories',
-        route: `${this.user?.username}/categories`
+        route: `${this.user?.uid}/categories`
       }
     ];
     this.activeTab = this.activeTabIndex ? this.tabs[this.activeTabIndex] : this.tabs[Tabs.home];
@@ -53,11 +53,11 @@ export class NavBarComponent implements OnInit {
     this.menuItems = [
       {
         name: 'Edit Profile',
-        route: `${this.user?.username}/edit-profile`
+        route: `${this.user?.uid}/edit-profile`
       },
       {
         name: 'Write Blog',
-        route: `${this.user?.username}/write`
+        route: `${this.user?.uid}/write`
       },
     ]
   }

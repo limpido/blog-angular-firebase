@@ -38,6 +38,6 @@ export class HomeComponent implements OnInit {
   }
 
   async selectBlog(blog: Blog) {
-    await this.router.navigate([`/blog/${this.user.uid}/${blog.docId}`]);
+    await this.router.navigate([`/${this.user.uid}/blog/${blog.docId}`]);
   }
 }
