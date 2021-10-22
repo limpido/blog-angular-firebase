@@ -74,9 +74,8 @@ export class BaseComponent implements OnInit {
     });
 
     loginModal.afterClosed().subscribe(async user => {
-      console.log(user);
-      if (user?.username) {
-        // navigate to user's home page
+      if (user?.uid) {
+        await this.router.navigate([`${user.uid}`]);
       }
     })
   }
