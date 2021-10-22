@@ -7,6 +7,9 @@ import {WriteBlogComponent} from "./write-blog/write-blog/write-blog.component";
 import {CategoriesComponent} from "./categories/categories.component";
 import {ViewBlogComponent} from "./view-blog/view-blog.component";
 import {HomeComponent} from "./home/home.component";
+import {ProfileGuard} from "./guards/profile.guard";
+import {AuthGuard} from "./guards/auth.guard";
+import {BlogGuard} from "./guards/blog.guard";
 
 const routes: Routes = [
   {
@@ -24,32 +27,32 @@ const routes: Routes = [
   {
     path: ':uid/edit-profile',
     pathMatch: 'full',
-    component: EditProfileComponent
-    // guard
+    component: EditProfileComponent,
+    canActivate: [ProfileGuard]
   },
   {
     path: ':uid/write',
     pathMatch: 'full',
-    component: WriteBlogComponent
-    // guard
+    component: WriteBlogComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: ':uid/categories',
     pathMatch: 'full',
-    component: CategoriesComponent
-    // guard
+    component: CategoriesComponent,
+    canActivate: [BlogGuard]
   },
   {
     path: ':uid/blog/:blogId',
     pathMatch: 'full',
-    component: ViewBlogComponent
-    // guard
+    component: ViewBlogComponent,
+    canActivate: [BlogGuard]
   },
   {
     path: ':uid',
     pathMatch: 'full',
-    component: HomeComponent
-    // guard
+    component: HomeComponent,
+    canActivate: [BlogGuard]
   },
   {
     path: '**',
