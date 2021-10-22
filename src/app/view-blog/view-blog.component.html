@@ -1,7 +1,7 @@
-<div class="nav-container" fxLayout="row" fxLayoutAlign="center center" *ngIf="!!user">
-  <app-nav-bar fxFlexFill [user]="user"></app-nav-bar>
-  <div class="button-container" fxLayout="row" fxLayoutGap="10px" *ngIf="!!user">
-    <button mat-button color="primary" class="nav-button" (click)="editBlog()">Edit</button>
+<div class="nav-container" fxLayout="row" fxLayoutAlign="center center">
+  <app-nav-bar fxFlexFill [user]="user" [author]="author" *ngIf="author"></app-nav-bar>
+  <div class="button-container" fxLayout="row" fxLayoutGap="10px" *ngIcf="!!user">
+    <button mat-button color="primary" class="nav-button" (click)="editBlog()" *ngIf="isOwn">Edit</button>
   </div>
 </div>
 

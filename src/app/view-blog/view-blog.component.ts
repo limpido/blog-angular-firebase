@@ -20,6 +20,7 @@ export class ViewBlogComponent implements OnInit {
   author: User;
   lastEditDate: string;
   blogId: string;
+  isOwn: boolean;
 
   pageYOffset: number;
   @HostListener('window:scroll', ['$event']) onScroll(){
@@ -45,6 +46,7 @@ export class ViewBlogComponent implements OnInit {
       this.blog = await this.blogService.getBlogById(uid, this.blogId),
       this.author = await this.userService.getUserByUid(uid).pipe(first()).toPromise()
     ]);
+    this.isOwn = this.user?.uid === this.author.uid;
     console.log(this.blog);
 
     const timeStamp = new Date(this.blog.last_edited_timestamp);
