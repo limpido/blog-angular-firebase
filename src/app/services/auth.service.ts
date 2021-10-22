@@ -21,11 +21,14 @@ export class AuthService {
     this.user$ = this.auth.authState.pipe(switchMap(user => {
       if (user) {
         return this.userService.getUserByUid(user.uid);
-      } else return of(null);
+      } else {
+        console.log('return of(null)');
+        return of(null);
+      }
     }),
       map(_user => {
         if (_user?.email_verified) return _user;
-        else return of(null);
+        else return null;
       }));
   }
 
