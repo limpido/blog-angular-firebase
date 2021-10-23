@@ -43,7 +43,6 @@ export class BlogEditorComponent implements OnInit {
     });
     this.categories = await this.blogService.getAllCategories(this.user.uid) ?? [];
     this.selectedCategory = this.blog?.category ? this.categories.filter(cat => cat.name == this.blog.category.name)[0] : null;
-    console.log(this.selectedCategory);
     this.categoryFc = this.blogInfoForm.get('category') as FormControl;
   }
 

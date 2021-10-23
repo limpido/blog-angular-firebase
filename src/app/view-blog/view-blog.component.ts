@@ -34,9 +34,7 @@ export class ViewBlogComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private router: Router,
-  ) {
-    console.log(this.route.snapshot.url);
-  }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
@@ -47,7 +45,6 @@ export class ViewBlogComponent implements OnInit {
       this.author = await this.userService.getUserByUid(uid).pipe(first()).toPromise()
     ]);
     this.isOwn = this.user?.uid === this.author.uid;
-    console.log(this.blog);
 
     const timeStamp = new Date(this.blog.last_edited_timestamp);
     const year = timeStamp.getFullYear();

@@ -22,7 +22,6 @@ export class AuthService {
       if (user) {
         return this.userService.getUserByUid(user.uid);
       } else {
-        console.log('return of(null)');
         return of(null);
       }
     }),
