@@ -71,7 +71,7 @@ export class WriteBlogComponent implements OnInit {
     if (blogInfoForm.valid) {
       const cat = blogInfoForm.get('category').value;
       const blog: Blog = {
-        category: {name: cat},
+        category: {name: cat.name},
         title: blogInfoForm.get('title').value.trim(),
         summary: blogInfoForm.get('summary').value.trim(),
         image_url: blogInfoForm.get('image_url').value,
