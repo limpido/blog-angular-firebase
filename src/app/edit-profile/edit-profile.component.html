@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="50px">
   <div fxLayout="row" fxLayoutAlign="center center">
-    <app-nav-bar fxFlexFill [user]="user" *ngIf="!!user"></app-nav-bar>
+    <app-nav-bar fxFlexFill [user]="user" [author]="user" *ngIf="!!user"></app-nav-bar>
   </div>
 
   <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" *ngIf="!!user">
