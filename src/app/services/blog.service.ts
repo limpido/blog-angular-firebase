@@ -1,4 +1,4 @@
-import {Injectable, Query} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore, DocumentChangeAction, DocumentData} from "@angular/fire/compat/firestore";
 import {Category} from "../models/category";
 import {Blog} from "../models/blog";

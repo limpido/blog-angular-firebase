@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
   async seeMoreBlogs() {
     this.loadMoreBlogs = true;
     const lastBlog: Blog = this.blogs[this.blogs.length-1];
-    const newBlogs: Array<Blog> = await this.blogService.getBlogs(this.user.uid, {startAfter: lastBlog, limit: this.defaultBlogSize});
+    const newBlogs: Array<Blog> = await this.blogService.getBlogs(this.author.uid, {startAfter: lastBlog, limit: this.defaultBlogSize});
     this.hasMoreBlogs = newBlogs.length === this.defaultBlogSize;
     this.blogs = this.blogs.concat(newBlogs);
     this.loadMoreBlogs = false;
