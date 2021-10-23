@@ -38,6 +38,9 @@ export class BaseComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
     console.log(this.user);
+    if (this.user?.uid) {
+      await this.router.navigate([`${this.user.uid}`]);
+    }
   }
 
   async signUpEmailVerified(email: string): Promise<void> {
