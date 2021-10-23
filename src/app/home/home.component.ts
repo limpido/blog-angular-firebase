@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit {
   author: User;
   blogs: Array<Blog>;
   tabs = Tabs;
+  hasMoreBlogs: boolean = true;
+  defaultBlogSize: number = 3;
+  loadMoreBlogs: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -29,15 +32,25 @@ export class HomeComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    const uid = this.route.snapshot.url[0].path;
     this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    const uid = this.route.snapshot.url[0].path;
     await Promise.all([
       this.author = await this.userService.getUserByUid(uid).pipe(first()).toPromise(),
-      this.blogs = await this.blogService.getAllBlogs(uid)
+      this.blogs = await this.blogService.getBlogs(uid, {limit: this.defaultBlogSize})
     ]);
+    this.hasMoreBlogs = this.blogs.length === this.defaultBlogSize;
   }
 
   async selectBlog(blog: Blog) {
-    await this.router.navigate([`/${this.user.uid}/blog/${blog.docId}`]);
+    await this.router.navigate([`/${this.author.uid}/blog/${blog.docId}`]);
+  }
+
+  async seeMoreBlogs() {
+    this.loadMoreBlogs = true;
+    const lastBlog: Blog = this.blogs[this.blogs.length-1];
+    const newBlogs: Array<Blog> = await this.blogService.getBlogs(this.user.uid, {startAfter: lastBlog, limit: this.defaultBlogSize});
+    this.hasMoreBlogs = newBlogs.length === this.defaultBlogSize;
+    this.blogs = this.blogs.concat(newBlogs);
+    this.loadMoreBlogs = false;
   }
 }

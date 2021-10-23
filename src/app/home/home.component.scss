@@ -29,5 +29,14 @@
   .blogs {
     margin-left: 30%;
     width: 70%;
+
+    .see-more-button {
+      color: $primary-color;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
   }
 }

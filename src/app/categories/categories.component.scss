@@ -25,3 +25,12 @@
   color: $primary-color;
   font-weight: bold;
 }
+
+.see-more-button {
+  color: $primary-color;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

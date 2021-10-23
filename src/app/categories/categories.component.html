@@ -1,6 +1,6 @@
 <div fxLayout="column">
   <div fxLayout="row" fxLayoutAlign="center center">
-    <app-nav-bar fxFlexFill [user]="user" [activeTabIndex]="tabs.category" *ngIf="!!user"></app-nav-bar>
+    <app-nav-bar fxFlexFill [user]="user" [author]="author" [activeTabIndex]="tabs.category" *ngIf="author"></app-nav-bar>
   </div>
 
   <div fxLayout="row" fxLayoutGap="8%" class="category-blog-container" *ngIf="categories && allBlogs">
@@ -30,6 +30,17 @@
     <div fxLayout="column" fxLayoutGap="20px">
       <div *ngFor="let blog of selectedBlogs">
         <app-blog-display-card [blog]="blog" class="w-100" (click)="selectBlog(blog)"></app-blog-display-card>
+      </div>
+      <div *ngIf="hasMoreBlogs && !loadMoreBlogs" fxLayout="row" fxLayoutAlign="center center">
+        <div class="see-more-button" (click)="seeMoreBlogs()">See More Blogs</div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center" *ngIf="loadMoreBlogs">
+        <mat-progress-spinner
+          class="upload-progress-spinner"
+          [color]="'primary'"
+          [mode]="'indeterminate'"
+          [diameter]="25">
+        </mat-progress-spinner>
       </div>
     </div>
   </div>
