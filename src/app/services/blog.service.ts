@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {AngularFirestore, DocumentChangeAction} from "@angular/fire/compat/firestore";
+import {Injectable, Query} from '@angular/core';
+import {AngularFirestore, DocumentChangeAction, DocumentData} from "@angular/fire/compat/firestore";
 import {Category} from "../models/category";
 import {Blog} from "../models/blog";
 import {first, map} from "rxjs/operators";
@@ -58,23 +58,19 @@ export class BlogService {
     });
   }
 
-  getAllBlogs(uid: string): Promise<Array<Blog>> {
-    return this.af.collection(`users/${uid}/blogs`).snapshotChanges()
-      .pipe(map((docs: DocumentChangeAction<any>[]) =>
-        docs.map((a: DocumentChangeAction<any>) => {
-          const data = a.payload.doc.data();
-          const docId = a.payload.doc.id;
-          return {...data, docId};
-        }))).pipe(first()).toPromise();
-  }
-
-  getBlogsByCategory(uid: string, categoryName: string): Promise<Array<Blog>> {
-    const category: Category = {
-      name: categoryName
-    };
+  getBlogs(uid: string, options?: {limit?: number, startAfter?: Blog, categoryName?: string}): Promise<Array<Blog>> {
     return this.af.collection(`users/${uid}/blogs`, ref => {
-      return ref
-        .where('category', '==', category);
+      let query: firebase.firestore.Query<DocumentData> = ref;
+      query = query.orderBy('last_edited_timestamp', 'desc');
+      if (options?.categoryName) {
+        const category: Category = {
+          name: options.categoryName
+        };
+        query = query.where('category', '==', category);
+      }
+      if (options?.startAfter) query = query.startAfter(options.startAfter.last_edited_timestamp);
+      if (options?.limit) query = query.limit(options.limit);
+      return query;
     }).snapshotChanges().pipe(map((docs: DocumentChangeAction<any>[]) =>
       docs.map((a: DocumentChangeAction<any>) => {
         const data = a.payload.doc.data();
