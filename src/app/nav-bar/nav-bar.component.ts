@@ -1,7 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../models/user";
 import {Router} from "@angular/router";
-
+import {AuthService} from "../services/auth.service";
+import {SignUpModalComponent} from "../modals/sign-up-modal/sign-up-modal.component";
+import {MatDialog} from "@angular/material/dialog";
+import {LogInModalComponent} from "../modals/log-in-modal/log-in-modal.component";
+import {Subscription} from "rxjs";
 
 interface Tab {
   name: string;
@@ -10,7 +14,7 @@ interface Tab {
 
 interface MenuItem {
   name: string;
-  route: string;
+  route?: string;
 }
 
 export enum Tabs {
@@ -27,39 +31,50 @@ export enum Tabs {
 export class NavBarComponent implements OnInit {
 
   @Input() user: User;
+  @Input() author: User;
   @Input() activeTabIndex: number;
 
   activeTab: Tab;
   tabs: Array<Tab> = [];
   menuItems: Array<MenuItem> = [];
+  sub: Subscription;
 
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private authService: AuthService,
+    public dialog: MatDialog,
+  ) {
+  }
 
   ngOnInit(): void {
     this.tabs = [
       {
         name: 'Home',
-        route: `${this.user?.uid}`
+        route: `${this.author?.uid ?? this.user?.uid}`
       },
       {
         name: 'Categories',
-        route: `${this.user?.uid}/categories`
+        route: `${this.author?.uid ?? this.user?.uid}/categories`
       }
     ];
-    this.activeTab = this.activeTabIndex ? this.tabs[this.activeTabIndex] : null;
 
     this.menuItems = [
       {
+        name: 'My Blog',
+        route: `/`
+      },
+      {
         name: 'Edit Profile',
-        route: `${this.user?.uid}/edit-profile`
+        route: `/edit-profile`
       },
       {
         name: 'Write Blog',
-        route: `${this.user?.uid}/write`
+        route: `/write`
       },
-    ]
+      {
+        name: 'Log out'
+      }
+    ];
   }
 
   async selectTab(tab: Tab): Promise<void> {
@@ -68,7 +83,35 @@ export class NavBarComponent implements OnInit {
   }
 
   async selectMenuItem(menuItem: MenuItem): Promise<void> {
-    await this.router.navigate([`${menuItem.route}`]);
+    if (menuItem.route) {
+      await this.router.navigate([`${this.user.uid}${menuItem.route}`]);
+    } else {
+      await this.authService.signOut();
+      window.location.reload();
+    }
   }
 
+  signUp(): void {
+    const signupModal = this.dialog.open(SignUpModalComponent, {
+      width: '400px',
+    });
+
+    signupModal.afterClosed().subscribe(async (res) => {
+      if (res?.submitted) {
+        await this.router.navigate([`/sign-up-verification-email-sent`]);
+      }
+    });
+  }
+
+  logIn(): void {
+    const loginModal = this.dialog.open(LogInModalComponent, {
+      width: '400px',
+    });
+
+    loginModal.afterClosed().subscribe(async user => {
+      if (user) {
+        window.location.reload();
+      }
+    })
+  }
 }

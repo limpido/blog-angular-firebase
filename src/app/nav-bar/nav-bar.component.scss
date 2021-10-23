@@ -1,6 +1,12 @@
 .nav-bar-container {
   position: relative;
 
+  .no-user-buttons {
+    position: absolute;
+    right: 3%;
+    z-index: 5;
+  }
+
   .profile {
     position: absolute;
     right: 3%;

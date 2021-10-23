@@ -1,10 +1,10 @@
 <div class="nav-bar-container" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
-  <nav mat-tab-nav-bar *ngIf="!!tabs.length" class="w-100" mat-align-tabs="center">
-    <a mat-tab-link *ngFor="let tab of tabs" (click)="selectTab(tab)" [active]="activeTab == tab">
+  <nav mat-tab-nav-bar *ngIf="!!author" class="w-100" mat-align-tabs="center">
+    <a mat-tab-link *ngFor="let tab of tabs" (click)="selectTab(tab)" [active]="tabs[activeTabIndex] === tab || activeTab === tab">
       {{tab.name}}</a>
   </nav>
 
-  <div class="profile">
+  <div class="profile" *ngIf="!!user">
     <button mat-button [matMenuTriggerFor]="menu" id="profile-photo-btn">
       <img src="{{user.profile_pic_url?.length ? user.profile_pic_url : 'assets/default-profile-photo.jpg'}}" id="profile-photo">
     </button>
@@ -13,5 +13,10 @@
         <button mat-menu-item (click)="selectMenuItem(menuItem)">{{menuItem.name}}</button>
       </div>
     </mat-menu>
+  </div>
+
+  <div class="no-user-buttons" fxLayout="row" fxLayoutAlign="start center" *ngIf="!user">
+    <button mat-button color="primary" (click)="signUp()">Sign up</button>
+    <button mat-button color="primary" (click)="logIn()">Log in</button>
   </div>
 </div>
