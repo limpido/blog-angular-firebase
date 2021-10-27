@@ -80,9 +80,9 @@ export class AuthService {
   signInWithEmailPassword(email: string, password: string): Promise<firebase.User | void> {
     return this.auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
       return userCredential.user!;
-    }).catch(error => {
-      console.error(error);
-      // auth/wrong-password
     })
+    // .catch(error => {
+    //   console.error(error);
+    // });
   }
 }

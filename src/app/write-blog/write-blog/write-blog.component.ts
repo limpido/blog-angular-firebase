@@ -39,7 +39,6 @@ export class WriteBlogComponent implements OnInit {
   ) {
     this.activatedRoute.paramMap.pipe(first()).toPromise().then(async (params) => {
       this.blogId = params.get('blogId');
-      console.log(this.blogId);
     });
   }
 
@@ -54,7 +53,6 @@ export class WriteBlogComponent implements OnInit {
 
     if (this.blogId) {
       this.blog = await this.blogService.getBlogById(this.user.uid, this.blogId);
-      console.log(this.blog);
     }
     this.isReady = true;
     this.cdr.detectChanges();
