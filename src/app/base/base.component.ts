@@ -17,6 +17,7 @@ import {first} from "rxjs/operators";
 export class BaseComponent implements OnInit {
 
   user: User;
+  exampleBlogId: string = 'SscLNKxcPwbK4X41WjRkzuLfR1i2';
 
   constructor(
     public dialog: MatDialog,
@@ -37,7 +38,6 @@ export class BaseComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
-    console.log(this.user);
     if (this.user?.uid) {
       await this.router.navigate([`${this.user.uid}`]);
     }
@@ -81,6 +81,10 @@ export class BaseComponent implements OnInit {
         await this.router.navigate([`${user.uid}`]);
       }
     })
+  }
+
+  async visitExampleBlog(): Promise<void> {
+    await this.router.navigate([`${this.exampleBlogId}`]);
   }
 
 }

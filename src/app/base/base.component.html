@@ -1,6 +1,9 @@
-<div class="base-container" fxLayout="row" fxLayoutAlign="center center">
-  <div class="buttons">
-    <button mat-button (click)="signUp()">Sign up</button>
-    <button mat-button (click)="logIn()">Log in</button>
+<div class="base-container" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
+  <div class="buttons" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+    <button mat-raised-button color="primary" (click)="signUp()">Sign up</button>
+    <button mat-raised-button color="primary" (click)="logIn()">Log in</button>
+  </div>
+  <div>
+    <button mat-button (click)="visitExampleBlog()">Visit Example Blog</button>
   </div>
 </div>
