@@ -32,8 +32,19 @@ export class LogInModalComponent implements OnInit {
       this.logInModal.disableClose = true;
       const email = this.logInForm.get('email')?.value.trim();
       const password = this.logInForm.get('password')?.value.trim();
-      const user = await this.authService.signInWithEmailPassword(email, password);
-      this.logInModal.close(user);
+      try {
+        const user = await this.authService.signInWithEmailPassword(email, password);
+        this.logInModal.close(user);
+      }
+      catch(error) {
+        this.logInModal.disableClose = false;
+        console.log(error.code);
+        switch (error.code) {
+          case 'auth/wrong-password': {
+            this.logInForm.get('password').setErrors({wrong: true});
+          }
+        }
+      }
     }
   }
 

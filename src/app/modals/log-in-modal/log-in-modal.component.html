@@ -25,6 +25,7 @@
           </button>
           <mat-error *ngIf="logInForm.get('password')!.hasError('required')">password is required</mat-error>
           <mat-error *ngIf="logInForm.get('password')!.hasError('minlength')">password length must >= 6</mat-error>
+          <mat-error *ngIf="logInForm.get('password')!.hasError('wrong')">password is wrong</mat-error>
         </mat-form-field>
       </div>
 
