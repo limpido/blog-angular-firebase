@@ -24,7 +24,7 @@ export class UserService {
           return {...(userDoc.payload.data()) as Object} as User;
         }
         return null;
-    }));
+      }));
   }
 
   updateUser(uid: string, data: User | any): Promise<void> {
@@ -50,5 +50,27 @@ export class UserService {
 
   deleteUserUnverified(uid: string): Promise<void> {
     return this.af.doc(`users_unverified/${uid}`).delete();
+  }
+
+  userEmailExists(email: string): Promise<Array<User>> {
+    return this.af.collection(`users`, ref => {
+      return ref.where('email', '==', email)
+    }).snapshotChanges().pipe(map((docs: DocumentChangeAction<any>[]) =>
+      docs.map((a: DocumentChangeAction<any>) => {
+        const data = a.payload.doc.data();
+        const docId = a.payload.doc.id;
+        return {...data, docId};
+      }))).pipe(first()).toPromise();
+  }
+
+  userUnverifiedEmailExists(email: string): Promise<Array<User>> {
+    return this.af.collection(`users_unverified`, ref => {
+      return ref.where('email', '==', email)
+    }).snapshotChanges().pipe(map((docs: DocumentChangeAction<any>[]) =>
+      docs.map((a: DocumentChangeAction<any>) => {
+        const data = a.payload.doc.data();
+        const docId = a.payload.doc.id;
+        return {...data, docId};
+      }))).pipe(first()).toPromise();
   }
 }

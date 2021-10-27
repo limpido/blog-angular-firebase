@@ -21,7 +21,7 @@
           <input matInput [formControlName]="'email'" placeholder="">
           <mat-error *ngIf="signUpForm.get('email')!.hasError('required')">email is required</mat-error>
           <mat-error *ngIf="signUpForm.get('email')!.hasError('email')">email address entered is invalid</mat-error>
-          <!--        <mat-error *ngIf="signUpForm.get('email')!.hasError('required')">this email address already exists</mat-error>-->
+          <mat-error *ngIf="signUpForm.get('email')!.hasError('emailExists')">this email address already exists</mat-error>
         </mat-form-field>
       </div>
 
@@ -45,8 +45,7 @@
             <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-error *ngIf="signUpForm.get('passwordConfirm')!.hasError('required')">confirm password is required</mat-error>
-          <mat-error *ngIf="!signUpForm.get('passwordConfirm')!.hasError('required') &&
-                          signUpForm.hasError('mismatch')">password does not match</mat-error>
+          <mat-error *ngIf="signUpForm.get('passwordConfirm')!.hasError('mismatch')">passwords mismatch</mat-error>
         </mat-form-field>
       </div>
 

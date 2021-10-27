@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
@@ -19,28 +19,44 @@ export class SignUpModalComponent implements OnInit {
   hidePasswordConfirm: boolean = true;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    public signUpModal: MatDialogRef<SignUpModalComponent>,
     private userService: UserService,
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    public signUpModal: MatDialogRef<SignUpModalComponent>,
   ) {
-    this.signUpForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      passwordConfirm: ['', Validators.required]
-    }, {validators: this.passwordMatchValidator});
+
   }
 
   ngOnInit(): void {
-
+    this.signUpForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email], [this.emailExistsValidator.bind(this)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      passwordConfirm: ['', Validators.required]
+    }, {validators: [this.passwordMatchValidator]});
   }
 
   passwordMatchValidator(fg: FormGroup) {
     const password = fg.get('password')!.value;
     const passwordConfirm = fg.get('passwordConfirm')!.value;
-    return password && (password === passwordConfirm) ? null : {mismatch: true};
+    if (password && password !== passwordConfirm) {
+      fg.get('passwordConfirm').setErrors({mismatch: true});
+    }
+  }
+
+  async emailExistsValidator(fc: FormControl) {
+    const email = fc.value!.trim();
+    return new Promise(async (resolve, reject) => {
+      this.userService.userEmailExists(email).then((users) => {
+        this.userService.userUnverifiedEmailExists(email).then((usersUnverified) => {
+          if (users.length > 0 || usersUnverified.length > 0) {
+            resolve({emailExists: true});
+          } else {
+            resolve(null);
+          }
+        });
+      });
+    });
   }
 
   async onSubmit() {
