@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../models/user";
-import {first} from "rxjs/operators";
 import {AuthService} from "../services/auth.service";
 import {Category} from "../models/category";
 import {BlogService} from "../services/blog.service";
 import {Blog} from "../models/blog";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Tabs} from "../nav-bar/nav-bar.component";
-import {UserService} from "../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-categories',
@@ -16,36 +13,31 @@ import {UserService} from "../services/user.service";
 })
 export class CategoriesComponent implements OnInit {
 
-  user: User;
-  author: User;
+  @Input() user: User;
+  @Input() author: User;
   categories: Array<Category>;
   selectedCategory: Category;
-  allBlogs: Array<Blog>;
+  @Input() allBlogs: Array<Blog>;
   selectedBlogs: Array<Blog>;
-  tabs = Tabs;
   defaultBlogSize: number = 3;
   loadMoreBlogs: boolean = false;
   hasMoreBlogs: boolean = true;
+  allBlogsNumber: number = 0;
 
   constructor(
     private authService: AuthService,
     private blogService: BlogService,
     private router: Router,
-    private route: ActivatedRoute,
-    private userService: UserService
   ) {
   }
 
   async ngOnInit(): Promise<void> {
-    const uid = this.route.snapshot.url[0].path;
-    await Promise.all([
-      this.author = await this.userService.getUserByUid(uid).pipe(first()).toPromise(),
-      this.categories = await this.blogService.getAllCategories(uid),
-      this.allBlogs = await this.blogService.getBlogs(uid),
-    ]);
+    this.categories = await this.blogService.getAllCategories(this.author.uid);
     this.selectedBlogs = this.allBlogs.slice(0, this.defaultBlogSize);
     this.hasMoreBlogs = this.selectedBlogs.length === this.defaultBlogSize;
-    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    for (let category of this.categories) {
+      this.allBlogsNumber += category.blog_number;
+    }
   }
 
   async selectCategory(category?: Category) {

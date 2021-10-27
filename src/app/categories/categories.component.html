@@ -1,8 +1,4 @@
 <div fxLayout="column">
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <app-nav-bar fxFlexFill [user]="user" [author]="author" [activeTabIndex]="tabs.category" *ngIf="author"></app-nav-bar>
-  </div>
-
   <div fxLayout="row" fxLayoutGap="8%" class="category-blog-container" *ngIf="categories && allBlogs">
     <div fxLayout="column" class="categories">
       <div fxLayout="row" fxLayoutAlign="center center">
@@ -13,7 +9,7 @@
         <div fxLayout="row" fxLayoutAlign="space-between center" class="select-category-option"
              (click)="selectCategory()" [ngClass]="!selectedCategory ? 'selected' : ''">
           <div>All</div>
-          <div>{{allBlogs.length}}</div>
+          <div>{{allBlogsNumber}}</div>
         </div>
         <mat-divider></mat-divider>
       </div>

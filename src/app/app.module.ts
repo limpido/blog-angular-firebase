@@ -35,6 +35,7 @@ import { BlogDisplayCardComponent } from './blog-display-card/blog-display-card.
 import {MatListModule} from '@angular/material/list';
 import { ViewBlogComponent } from './view-blog/view-blog.component';
 import { HomeComponent } from './home/home.component';
+import { BlogBaseComponent } from './blog-base/blog-base.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { HomeComponent } from './home/home.component';
     CategoriesComponent,
     BlogDisplayCardComponent,
     ViewBlogComponent,
-    HomeComponent
+    HomeComponent,
+    BlogBaseComponent
   ],
   imports: [
     BrowserModule,

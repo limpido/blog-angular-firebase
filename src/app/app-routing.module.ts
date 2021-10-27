@@ -10,6 +10,7 @@ import {HomeComponent} from "./home/home.component";
 import {ProfileGuard} from "./guards/profile.guard";
 import {AuthGuard} from "./guards/auth.guard";
 import {BlogGuard} from "./guards/blog.guard";
+import {BlogBaseComponent} from "./blog-base/blog-base.component";
 
 const routes: Routes = [
   {
@@ -39,7 +40,7 @@ const routes: Routes = [
   {
     path: ':uid/categories',
     pathMatch: 'full',
-    component: CategoriesComponent,
+    component: BlogBaseComponent,
     canActivate: [BlogGuard]
   },
   {
@@ -51,7 +52,7 @@ const routes: Routes = [
   {
     path: ':uid',
     pathMatch: 'full',
-    component: HomeComponent,
+    component: BlogBaseComponent,
     canActivate: [BlogGuard]
   },
   {

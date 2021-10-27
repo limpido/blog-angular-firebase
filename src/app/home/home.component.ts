@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../models/user";
 import {Blog} from "../models/blog";
 import {AuthService} from "../services/auth.service";
-import {first} from "rxjs/operators";
 import {BlogService} from "../services/blog.service";
-import {Tabs} from "../nav-bar/nav-bar.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 
@@ -15,10 +13,9 @@ import {UserService} from "../services/user.service";
 })
 export class HomeComponent implements OnInit {
 
-  user: User;
-  author: User;
-  blogs: Array<Blog>;
-  tabs = Tabs;
+  @Input() user: User;
+  @Input() author: User;
+  @Input() blogs: Array<Blog>;
   hasMoreBlogs: boolean = true;
   defaultBlogSize: number = 3;
   loadMoreBlogs: boolean = false;
@@ -32,12 +29,6 @@ export class HomeComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
-    const uid = this.route.snapshot.url[0].path;
-    await Promise.all([
-      this.author = await this.userService.getUserByUid(uid).pipe(first()).toPromise(),
-      this.blogs = await this.blogService.getBlogs(uid, {limit: this.defaultBlogSize})
-    ]);
     this.hasMoreBlogs = this.blogs.length === this.defaultBlogSize;
   }
 

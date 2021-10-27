@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from "../models/user";
 import {Router} from "@angular/router";
 import {AuthService} from "../services/auth.service";
@@ -33,11 +33,12 @@ export class NavBarComponent implements OnInit {
   @Input() user: User;
   @Input() author: User;
   @Input() activeTabIndex: number;
+  @Input() isBase: boolean;
+  @Output() activeTabChange: EventEmitter<number> = new EventEmitter<number>();
 
   activeTab: Tab;
   tabs: Array<Tab> = [];
   menuItems: Array<MenuItem> = [];
-  sub: Subscription;
 
   constructor(
     private router: Router,
@@ -57,6 +58,7 @@ export class NavBarComponent implements OnInit {
         route: `${this.author?.uid ?? this.user?.uid}/categories`
       }
     ];
+    this.activeTab = this.tabs[this.activeTabIndex];
 
     this.menuItems = [
       {
@@ -79,7 +81,11 @@ export class NavBarComponent implements OnInit {
 
   async selectTab(tab: Tab): Promise<void> {
     this.activeTab = tab;
-    await this.router.navigate([`${tab.route}`]);
+    if (this.isBase) {
+      this.activeTabChange.emit(this.tabs.indexOf(tab));
+    } else {
+      await this.router.navigate([`${tab.route}`]);
+    }
   }
 
   async selectMenuItem(menuItem: MenuItem): Promise<void> {

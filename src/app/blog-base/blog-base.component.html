@@ -1,0 +1,10 @@
+<div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <app-nav-bar fxFlexFill [user]="user" [author]="author" [activeTabIndex]="activeTabIndex" [isBase]="true"
+                 *ngIf="!!author" (activeTabChange)="activeTabChange($event)"></app-nav-bar>
+  </div>
+  <div>
+    <app-home *ngIf="isReady && activeTabIndex === tabs.home" [user]="user" [author]="author" [blogs]="blogs"></app-home>
+    <app-categories *ngIf="isReady && activeTabIndex === tabs.category" [user]="user" [author]="author" [allBlogs]="blogs"></app-categories>
+  </div>
+</div>
