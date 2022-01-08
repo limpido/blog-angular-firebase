@@ -25,7 +25,7 @@
 
     <div fxLayout="column" fxLayoutGap="20px">
       <div *ngFor="let blog of selectedBlogs">
-        <app-blog-display-card [blog]="blog" class="w-100" (click)="selectBlog(blog)"></app-blog-display-card>
+        <app-blog-display-card [blog]="blog" (click)="selectBlog(blog)"></app-blog-display-card>
       </div>
       <div *ngIf="hasMoreBlogs && !loadMoreBlogs" fxLayout="row" fxLayoutAlign="center center">
         <div class="see-more-button" (click)="seeMoreBlogs()">See More Blogs</div>

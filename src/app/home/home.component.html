@@ -9,8 +9,8 @@
       <div>{{author.email}}</div>
     </div>
     <div fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center center" *ngIf="author.github_link">
-      <img class="github-logo" src="assets/github-logo.png">
-      <div>{{author.github_link}}</div>
+      <img class="github-logo profile-icon" src="assets/github-logo.png">
+      <div><a [href]="author.github_link" target="_blank" class="link">{{author.github_link}}</a></div>
     </div>
   </div>
 

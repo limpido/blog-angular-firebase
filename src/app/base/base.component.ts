@@ -17,7 +17,7 @@ import {first} from "rxjs/operators";
 export class BaseComponent implements OnInit {
 
   user: User;
-  exampleBlogId: string = 'SscLNKxcPwbK4X41WjRkzuLfR1i2';
+  exampleBlogId: string = '1Q4PxbOAVzRcxqEul0ppxBdGl3j1';
 
   constructor(
     public dialog: MatDialog,

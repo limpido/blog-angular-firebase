@@ -9,6 +9,10 @@
     top: 30%;
     color: rgb(149,149,149);
 
+    .link {
+      color: rgb(149,149,149);
+    }
+
     .profile-photo {
       width: 130px;
       height: 130px;
@@ -18,11 +22,16 @@
 
     .author-username {
       font-size: 16px;
+      font-weight: 500;
       color: $black;
     }
 
     .github-logo {
       width: 24px;
+    }
+
+    .profile-icon {
+      opacity: 0.4;
     }
   }
 
