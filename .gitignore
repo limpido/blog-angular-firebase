@@ -1,8 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# environment variables
-/src/environments
-
 # compiled output
 /dist
 /tmp
@@ -46,3 +43,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Firebase Hosting
+.firebaserc
+.firebase/*
+firebase-debug.log
