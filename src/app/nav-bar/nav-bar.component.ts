@@ -5,7 +5,6 @@ import {AuthService} from "../services/auth.service";
 import {SignUpModalComponent} from "../modals/sign-up-modal/sign-up-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {LogInModalComponent} from "../modals/log-in-modal/log-in-modal.component";
-import {Subscription} from "rxjs";
 
 interface Tab {
   name: string;

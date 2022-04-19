@@ -19,12 +19,12 @@ export class AuthService {
     private userService: UserService
   ) {
     this.user$ = this.auth.authState.pipe(switchMap(user => {
-      if (user) {
-        return this.userService.getUserByUid(user.uid);
-      } else {
-        return of(null);
-      }
-    }),
+        if (user) {
+          return this.userService.getUserByUid(user.uid);
+        } else {
+          return of(null);  // Observable<null>
+        }
+      }),
       map(_user => {
         if (_user?.email_verified) return _user;
         else return null;
@@ -37,7 +37,7 @@ export class AuthService {
     });
   }
 
-  async signOut() {
+  async signOut(): Promise<void> {
     await this.auth.signOut();
   }
 
@@ -45,44 +45,31 @@ export class AuthService {
     return this.auth.createUserWithEmailAndPassword(email, password).then(async (userCredential) => {
       await this.sendSignUpVerificationMail(userCredential.user!);
       return userCredential;
-    }).catch(error => {
-      // auth/email-already-in-use
-      console.error(error);
+    }).catch((err) => {
+      console.error(err);
     });
   }
 
-  sendSignUpVerificationMail(user: firebase.User) {
+  sendSignUpVerificationMail(user: firebase.User): void {
     const actionCodeSettings: firebase.auth.ActionCodeSettings = {
-      url: `http://localhost:4200/sign-up-email-verification?email=${user.email}`,
-      handleCodeInApp: true,
-      // iOS: {
-      //   bundleId: 'com.example.ios'
-      // },
-      // android: {
-      //   packageName: 'com.example.android',
-      //   installApp: true,
-      //   minimumVersion: '12'
-      // },
-      // dynamicLinkDomain: 'example.page.link'
+      url: `https://blog-angular-firebase-feb70.web.app/sign-up-email-verification?email=${user.email}`
     };
     user.sendEmailVerification(actionCodeSettings)
       .then(() => {
         if (user.email) {
-          // window.localStorage.setItem('emailForSignIn', user.email);
           console.log('email sent to ' + user.email);
         }
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((err) => {
+        console.error(err);
       });
   }
 
   signInWithEmailPassword(email: string, password: string): Promise<firebase.User | void> {
     return this.auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
-      return userCredential.user!;
-    })
-    // .catch(error => {
-    //   console.error(error);
-    // });
+      return userCredential.user;
+    }).catch((err) => {
+      console.error(err);
+    });
   }
 }

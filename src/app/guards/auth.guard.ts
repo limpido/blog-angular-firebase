@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     const uid = route.url[0].path;
     const user: User = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
     const author: User = await this.userService.getUserByUid(uid).pipe(first()).toPromise();
-    if (user && user.uid == author.uid) {
+    if (user && user.uid === author.uid) {
       return true;
     } else return this.router.parseUrl(`/`);
   }
