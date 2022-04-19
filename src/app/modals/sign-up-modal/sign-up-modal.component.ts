@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {User} from "../../models/user";
-import {Router} from "@angular/router";
 import {MatDialogRef} from "@angular/material/dialog";
 import {UserService} from "../../services/user.service";
 
@@ -36,7 +35,7 @@ export class SignUpModalComponent implements OnInit {
     }, {validators: [this.passwordMatchValidator]});
   }
 
-  passwordMatchValidator(fg: FormGroup) {
+  passwordMatchValidator(fg: FormGroup): void {
     const password = fg.get('password')!.value;
     const passwordConfirm = fg.get('passwordConfirm')!.value;
     if (password && password !== passwordConfirm) {
@@ -44,7 +43,7 @@ export class SignUpModalComponent implements OnInit {
     }
   }
 
-  async emailExistsValidator(fc: FormControl) {
+  async emailExistsValidator(fc: FormControl): Promise<ValidationErrors | null> {
     const email = fc.value!.trim();
     return new Promise(async (resolve, reject) => {
       this.userService.userEmailExists(email).then((users) => {
@@ -59,7 +58,7 @@ export class SignUpModalComponent implements OnInit {
     });
   }
 
-  async onSubmit() {
+  async onSubmit(): Promise<void> {
     if (this.signUpForm.valid) {
       this.signUpModal.disableClose = true;
       const email = this.signUpForm.get('email')?.value.trim();
@@ -69,7 +68,7 @@ export class SignUpModalComponent implements OnInit {
       this.signUpModal.close({submitted: true});
 
       if (userCredential) {
-        const uid = userCredential.user!.uid;
+        const uid = userCredential.user.uid;
         const user: User = {
           uid,
           username,

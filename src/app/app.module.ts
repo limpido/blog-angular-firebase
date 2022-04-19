@@ -36,6 +36,7 @@ import {MatListModule} from '@angular/material/list';
 import { ViewBlogComponent } from './view-blog/view-blog.component';
 import { HomeComponent } from './home/home.component';
 import { BlogBaseComponent } from './blog-base/blog-base.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { BlogBaseComponent } from './blog-base/blog-base.component';
     BlogDisplayCardComponent,
     ViewBlogComponent,
     HomeComponent,
-    BlogBaseComponent
+    BlogBaseComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

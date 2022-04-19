@@ -4,13 +4,12 @@ import {BaseComponent} from "./base/base.component";
 import {SignUpVerificationComponent} from "./sign-up-verification/sign-up-verification.component";
 import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {WriteBlogComponent} from "./write-blog/write-blog/write-blog.component";
-import {CategoriesComponent} from "./categories/categories.component";
 import {ViewBlogComponent} from "./view-blog/view-blog.component";
-import {HomeComponent} from "./home/home.component";
 import {ProfileGuard} from "./guards/profile.guard";
 import {AuthGuard} from "./guards/auth.guard";
 import {BlogGuard} from "./guards/blog.guard";
 import {BlogBaseComponent} from "./blog-base/blog-base.component";
+import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {
@@ -56,9 +55,12 @@ const routes: Routes = [
     canActivate: [BlogGuard]
   },
   {
-    path: '**',
-    pathMatch: 'full',
+    path: '',
     component: BaseComponent
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   },
 ];
 
