@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/user.service";
 import {User} from "../models/user";
-import {first} from "rxjs/operators";
 import {FormControl, Validators} from "@angular/forms";
 import {ValidationService} from "../services/validation.service";
 import {AngularFireStorage} from "@angular/fire/compat/storage";

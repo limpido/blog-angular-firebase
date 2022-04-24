@@ -37,16 +37,18 @@ export class BlogBaseComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.activeTabIndex = this.route.snapshot.url[1]?.path === 'categories' ? this.tabs.category : this.tabs.home;
     this.user = this.authService.user ?? await this.authService.getUser();
-    const uid = this.route.snapshot.url[0].path;
-    await Promise.all([
-      this.author = uid === this.user.uid ? this.user : await this.userService.getUserByUid(uid).pipe(first()).toPromise(),
-      this.blogs = await this.blogService.getBlogs(uid, {limit: this.defaultBlogSize})
-    ]);
-    this.tabRoutes = [
-      `${uid}`,
-      `${uid}/categories`
-    ];
-    this.isReady = true;
+    this.route.params.subscribe(async (params) => {
+      const uid = this.route.snapshot.url[0].path;
+      await Promise.all([
+        this.author = uid === this.user.uid ? this.user : await this.userService.getUserByUid(uid).pipe(first()).toPromise(),
+        this.blogs = await this.blogService.getBlogs(uid, {limit: this.defaultBlogSize})
+      ]);
+      this.tabRoutes = [
+        `${uid}`,
+        `${uid}/categories`
+      ];
+      this.isReady = true;
+    });
   }
 
   activeTabChange(index: number) {

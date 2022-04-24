@@ -92,8 +92,8 @@ export class NavBarComponent implements OnInit {
       await this.router.navigate([`${this.user.uid}${menuItem.route}`]);
     } else {
       await this.authService.signOut();
+      window.location.reload();
     }
-    window.location.reload();
   }
 
   signUp(): void {

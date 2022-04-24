@@ -42,7 +42,7 @@ export class BlogService {
     return this.af.collection(`users/${uid}/blogs`).add(blog);
   }
 
-  getBlogById(uid: string, blogId: string) {
+  getBlogById(uid: string, blogId: string): Promise<Blog> {
     return this.af.doc(`users/${uid}/blogs/${blogId}`).ref.get().then((docSnapshot) => {
       return docSnapshot.data();
     });
