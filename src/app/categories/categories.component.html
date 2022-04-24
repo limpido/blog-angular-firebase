@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div fxLayout="column" fxLayoutGap="20px">
+    <div class="blogs" fxLayout="column" fxLayoutGap="20px">
       <div *ngFor="let blog of selectedBlogs">
         <app-blog-display-card [blog]="blog" (click)="selectBlog(blog)"></app-blog-display-card>
       </div>

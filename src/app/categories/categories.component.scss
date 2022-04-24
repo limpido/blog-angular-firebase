@@ -1,5 +1,9 @@
 @import 'src/styles.scss';
 
+.blogs {
+  width: 70%;
+}
+
 .categories {
   min-width: 200px;
 }
@@ -18,7 +22,7 @@
 }
 
 .category-blog-container {
-  padding: 50px 12%;
+  padding: 50px 15%;
 }
 
 .selected {

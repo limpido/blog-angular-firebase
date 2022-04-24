@@ -24,8 +24,8 @@ export class BlogService {
     return this.af.doc(`users/${uid}/categories/${categoryName}`).update(data);
   }
 
-  async incrementCategoryBlogNumber(uid: string, categoryName: string): Promise<void> {
-    await this.updateCategory(uid, categoryName, {blog_number: FieldValue.increment(1)});
+  async incrementCategoryBlogNumber(uid: string, categoryName: string, value: number): Promise<void> {
+    await this.updateCategory(uid, categoryName, {blog_number: FieldValue.increment(value)});
   }
 
   getAllCategories(uid: string): Promise<Array<Category>> {
