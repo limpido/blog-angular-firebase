@@ -12,6 +12,7 @@ export class LogInModalComponent implements OnInit {
 
   logInForm: FormGroup;
   hidePassword: boolean = true;
+  hasLogInError: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,20 +31,15 @@ export class LogInModalComponent implements OnInit {
   async onSubmit(): Promise<void> {
     if (this.logInForm.valid) {
       this.logInModal.disableClose = true;
+      this.hasLogInError = false;
       const email = this.logInForm.get('email')?.value.trim();
       const password = this.logInForm.get('password')?.value.trim();
-      try {
-        const user = await this.authService.signInWithEmailPassword(email, password);
-        this.logInModal.close(user);
-      }
-      catch(error) {
+      const user = await this.authService.signInWithEmailPassword(email, password);
+      if (!user) {
+        this.hasLogInError = true;
         this.logInModal.disableClose = false;
-        console.log(error.code);
-        switch (error.code) {
-          case 'auth/wrong-password': {
-            this.logInForm.get('password').setErrors({wrong: true});
-          }
-        }
+      } else {
+        this.logInModal.close(user);
       }
     }
   }
