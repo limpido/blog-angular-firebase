@@ -40,7 +40,7 @@ export class BlogBaseComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       const uid = this.route.snapshot.url[0].path;
       await Promise.all([
-        this.author = uid === this.user.uid ? this.user : await this.userService.getUserByUid(uid).pipe(first()).toPromise(),
+        this.author = uid === this.user.uid ? this.user : await this.userService.getUserByUid(uid),
         this.blogs = await this.blogService.getBlogs(uid, {limit: this.defaultBlogSize})
       ]);
       this.tabRoutes = [

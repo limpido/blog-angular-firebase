@@ -42,7 +42,7 @@ export class ViewBlogComponent implements OnInit {
     this.blogId = this.route.snapshot.url[2].path;
     await Promise.all([
       this.blog = await this.blogService.getBlogById(uid, this.blogId),
-      this.author = await this.userService.getUserByUid(uid).pipe(first()).toPromise()
+      this.author = await this.userService.getUserByUid(uid)
     ]);
     this.isOwn = this.user?.uid === this.author.uid;
 

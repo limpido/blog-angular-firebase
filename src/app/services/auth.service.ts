@@ -20,7 +20,7 @@ export class AuthService {
   async getUser(): Promise<User> {
     return this.auth.authState.pipe(first()).toPromise().then(async (_user) => {
       if (_user) {
-        const user = await this.userService.getUserByUid(_user.uid).pipe(first()).toPromise();
+        const user = await this.userService.getUserByUid(_user.uid);
         if (user && user?.email_verified) {
           this.user = user;
         }

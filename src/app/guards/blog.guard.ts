@@ -23,7 +23,7 @@ export class BlogGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean | UrlTree> {
     const uid = route.url[0].path;
-    const author: User = await this.userService.getUserByUid(uid).pipe(first()).toPromise();
+    const author: User = await this.userService.getUserByUid(uid);
     if (route.url[1]?.path === "blog") {   // view blog
       const blogId = route.url[2]?.path;
       let blog: Blog;
