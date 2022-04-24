@@ -13,6 +13,8 @@ export class ProfileGuard implements CanActivate {
     private router: Router,
   ) {}
 
+  // for access to profile page
+  // check if there is a logged-in user
   async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean | UrlTree> {

@@ -16,13 +16,13 @@ const routes: Routes = [
     path: 'sign-up-verification-email-sent',
     pathMatch: 'full',
     component: SignUpVerificationComponent
-    // guard
+    // TODO:: guard
   },
   {
     path: 'sign-up-email-verification',
     pathMatch: 'full',
     component: BaseComponent
-    // guard
+    // TODO:: guard
   },
   {
     path: ':uid/edit-profile',
