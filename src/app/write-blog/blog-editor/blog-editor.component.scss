@@ -8,12 +8,6 @@
   .blog-info {
     width: 25%;
 
-    ::ng-deep .select-form-field {
-      .mat-form-field-wrapper {
-        padding-bottom: 0 !important;
-      }
-    }
-
     .upload-img {
       .upload-btn-container {
         position: relative;
@@ -34,6 +28,11 @@
           object-fit: cover;
         }
       }
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 75%;
     }
   }
 

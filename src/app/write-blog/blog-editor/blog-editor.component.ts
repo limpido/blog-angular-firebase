@@ -5,6 +5,7 @@ import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {Category} from "../../models/category";
 import {BlogService} from "../../services/blog.service";
 import {Blog} from "../../models/blog";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-blog-editor',
@@ -16,14 +17,12 @@ export class BlogEditorComponent implements OnInit {
   @Input() user: User;
   @Input() blog: Blog;
   blogInfoForm: FormGroup;
-  imgUploadPercentage: number;
+  imgUploadPercentage: Observable<number>;
   categories: Array<Category>;
   showAddCategory: boolean = false;
   newCategoryName: string = '';
   showCategoryExistedError: boolean = false;
   markdown: string;
-  selectedCategory: Category;
-  categoryFc: FormControl;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,16 +33,13 @@ export class BlogEditorComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.markdown = this.blog?.content ?? '';
-    console.log(this.blog);
     this.blogInfoForm = this.formBuilder.group({
-      title: [this.blog?.title ?? '', [Validators.required, Validators.maxLength(30)]],
-      summary: [this.blog?.summary ?? '', [Validators.required, Validators.maxLength(60)]],
-      category: [this.blog?.category.name ?? null, [Validators.required]],
+      title: [this.blog?.title ?? null, [Validators.required, Validators.maxLength(30)]],
+      summary: [this.blog?.summary ?? null, [Validators.required, Validators.maxLength(60)]],
+      category: [this.blog?.category ?? null, [Validators.required]],
       image_url: [this.blog?.image_url ?? null]
     });
     this.categories = await this.blogService.getAllCategories(this.user.uid) ?? [];
-    this.selectedCategory = this.blog?.category ? this.categories.filter(cat => cat.name == this.blog.category.name)[0] : null;
-    this.categoryFc = this.blogInfoForm.get('category') as FormControl;
   }
 
   get category(): FormControl {
@@ -55,9 +51,7 @@ export class BlogEditorComponent implements OnInit {
     const uidLast4 = this.user.uid.slice(-4);
     const filePath = `images/blog_images/${this.user.username}-${uidLast4}/${Date.now()}`;
     const task = this.storage.upload(filePath, file);
-    task.percentageChanges().subscribe((percent: number) => {
-      this.imgUploadPercentage = percent;
-    });
+    this.imgUploadPercentage = task.percentageChanges();
     task.then(() => {
       this.storage.ref(filePath).getDownloadURL().subscribe(async (downloadURL: string) => {
         this.imgUploadPercentage = null;
@@ -88,6 +82,10 @@ export class BlogEditorComponent implements OnInit {
       this.toggleAddCategory();
       await this.blogService.setCategory(this.user.uid, category);
     }
+  }
+
+  objectComparisonFunction( option: Category, value: Category ) : boolean {
+    return option.name === value?.name;
   }
 
 }

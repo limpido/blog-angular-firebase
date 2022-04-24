@@ -22,7 +22,7 @@
       <div class="select-category" style="margin-bottom: 20px;">
         <mat-form-field appearance="outline" class="select-form-field w-100">
           <mat-label>Select a category</mat-label>
-          <mat-select [formControl]="category">
+          <mat-select [formControlName]="'category'" [compareWith]="objectComparisonFunction">
             <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
           </mat-select>
           <mat-error *ngIf="blogInfoForm.get('category')!.hasError('required')">category is required</mat-error>
@@ -30,9 +30,11 @@
 
         <div class="add-category" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="6px">
           <button type="button" mat-button color="primary" (click)="toggleAddCategory()">+ Add new category</button>
-          <div *ngIf="showAddCategory" fxLayout="row" fxLayoutGap="8px">
-            <input matInput appearance="outline" placeholder="new category" [(ngModel)]="newCategoryName" [ngModelOptions]="{standalone: true}">
-            <mat-error *ngIf="showCategoryExistedError">category already existed</mat-error>
+          <div *ngIf="showAddCategory" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="new category" [(ngModel)]="newCategoryName" [ngModelOptions]="{standalone: true}">
+              <span class="error-message" *ngIf="showCategoryExistedError">category already existed</span>
+            </mat-form-field>
             <button type="button" mat-raised-button color="primary" (click)="addCategory(newCategoryName)">Add</button>
           </div>
         </div>
@@ -46,7 +48,7 @@
             class="upload-progress-spinner"
             [color]="'primary'"
             [mode]="'determinate'"
-            [value]="imgUploadPercentage"
+            [value]="imgUploadPercentage | async"
             [diameter]="20">
           </mat-progress-spinner>
         </div>
