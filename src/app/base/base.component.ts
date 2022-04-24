@@ -7,7 +7,6 @@ import {LogInModalComponent} from "../modals/log-in-modal/log-in-modal.component
 import {User} from "../models/user";
 import {UserService} from "../services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-base',

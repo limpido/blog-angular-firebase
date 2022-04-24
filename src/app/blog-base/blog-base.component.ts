@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {User} from "../models/user";
 import {Blog} from "../models/blog";
 import {Tabs} from "../nav-bar/nav-bar.component";
-import {first} from "rxjs/operators";
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/user.service";
 import {BlogService} from "../services/blog.service";

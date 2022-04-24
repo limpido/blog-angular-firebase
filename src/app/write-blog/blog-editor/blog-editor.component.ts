@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Form, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../models/user";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {Category} from "../../models/category";

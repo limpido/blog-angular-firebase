@@ -5,7 +5,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BlogService} from "../services/blog.service";
 import {User} from "../models/user";
 import {UserService} from "../services/user.service";
-import {first} from "rxjs/operators";
 import {AuthService} from "../services/auth.service";
 
 @Component({
