@@ -16,7 +16,7 @@ export class ProfileGuard implements CanActivate {
   async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean | UrlTree> {
-    const user: User = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    const user: User = this.authService.user ?? await this.authService.getUser();
     return !!user ? true : this.router.parseUrl(`/`);
   }
 

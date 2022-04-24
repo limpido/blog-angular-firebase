@@ -37,7 +37,7 @@ export class BaseComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    this.user = this.authService.user ?? await this.authService.getUser();
     if (this.user?.uid) {
       await this.router.navigate([`${this.user.uid}`]);
     }

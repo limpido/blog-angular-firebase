@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    this.user = this.authService.user ?? await this.authService.getUser();
     this.oriUsername = this.user?.username;
     this.usernameFc = new FormControl(this.user?.username ?? '', [Validators.required]);
     this.githubFc = new FormControl(this.user?.github_link ?? '', this.validationService.urlValidator());

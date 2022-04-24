@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {User} from "../../models/user";
-import {first, switchMap} from "rxjs/operators";
+import {first} from "rxjs/operators";
 import {AuthService} from "../../services/auth.service";
 import {BlogEditorComponent} from "../blog-editor/blog-editor.component";
 import {Blog} from "../../models/blog";
@@ -36,14 +36,17 @@ export class WriteBlogComponent implements OnInit {
     private scroll: ViewportScroller,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-  ) {
-    this.activatedRoute.paramMap.pipe(first()).toPromise().then(async (params) => {
-      this.blogId = params.get('blogId');
-    });
-  }
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    this.user = this.authService.user ?? await this.authService.getUser();
+
+    this.activatedRoute.paramMap.pipe(first()).toPromise().then(async (params) => {
+      this.blogId = params.get('blogId');
+      if (this.blogId) {
+        this.blog = await this.blogService.getBlogById(this.user.uid, this.blogId);
+      }
+    });
 
     const today = new Date();
     const year = today.getFullYear();
@@ -51,9 +54,6 @@ export class WriteBlogComponent implements OnInit {
     const day = today.getDate();
     this.lastEditDate = `${year}-${month}-${day}`;
 
-    if (this.blogId) {
-      this.blog = await this.blogService.getBlogById(this.user.uid, this.blogId);
-    }
     this.isReady = true;
     this.cdr.detectChanges();
   }

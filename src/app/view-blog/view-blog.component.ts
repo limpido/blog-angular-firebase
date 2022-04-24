@@ -37,7 +37,7 @@ export class ViewBlogComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    this.user = this.authService.user ?? await this.authService.getUser();
     const uid = this.route.snapshot.url[0].path;
     this.blogId = this.route.snapshot.url[2].path;
     await Promise.all([

@@ -3,8 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import {User} from "../models/user";
 import {UserService} from "./user.service";
-import {Observable, of} from "rxjs";
-import {map, switchMap} from 'rxjs/operators';
+import {first} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,29 +11,22 @@ import {map, switchMap} from 'rxjs/operators';
 export class AuthService {
 
   user: User;
-  user$: Observable<User>;
 
   constructor(
     private auth: AngularFireAuth,
     private userService: UserService
-  ) {
-    this.user$ = this.auth.authState.pipe(switchMap(user => {
-        if (user) {
-          return this.userService.getUserByUid(user.uid);
-        } else {
-          return of(null);  // Observable<null>
-        }
-      }),
-      map(_user => {
-        if (_user?.email_verified) return _user;
-        else return null;
-      }));
-  }
+  ) {}
 
-  init() {
-    this.user$.subscribe(user => {
-      this.user = user;
-    });
+  async getUser(): Promise<User> {
+    return this.auth.authState.pipe(first()).toPromise().then(async (_user) => {
+      if (_user) {
+        const user = await this.userService.getUserByUid(_user.uid).pipe(first()).toPromise();
+        if (user && user?.email_verified) {
+          this.user = user;
+        }
+      } else this.user = null;
+      return this.user;
+    })
   }
 
   async signOut(): Promise<void> {
@@ -69,7 +61,7 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
       return userCredential.user;
     }).catch((err) => {
-      console.error(err);
+      console.log(err.code);
     });
   }
 }
