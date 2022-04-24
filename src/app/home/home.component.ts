@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
   ) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.hasMoreBlogs = this.blogs.length === this.defaultBlogSize;
   }
 
