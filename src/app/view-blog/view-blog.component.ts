@@ -5,7 +5,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BlogService} from "../services/blog.service";
 import {User} from "../models/user";
 import {UserService} from "../services/user.service";
-import {first} from "rxjs/operators";
 import {AuthService} from "../services/auth.service";
 
 @Component({
@@ -37,12 +36,12 @@ export class ViewBlogComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    this.user = this.authService.user ?? await this.authService.getUser();
     const uid = this.route.snapshot.url[0].path;
     this.blogId = this.route.snapshot.url[2].path;
     await Promise.all([
       this.blog = await this.blogService.getBlogById(uid, this.blogId),
-      this.author = await this.userService.getUserByUid(uid).pipe(first()).toPromise()
+      this.author = await this.userService.getUserByUid(uid)
     ]);
     this.isOwn = this.user?.uid === this.author.uid;
 

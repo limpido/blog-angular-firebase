@@ -7,7 +7,6 @@ import {LogInModalComponent} from "../modals/log-in-modal/log-in-modal.component
 import {User} from "../models/user";
 import {UserService} from "../services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-base',
@@ -27,17 +26,18 @@ export class BaseComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
   ) {
+  }
+
+  async ngOnInit(): Promise<void> {
     const snapshot = this.activatedRoute.snapshot;
-    if (snapshot.url[0]?.path === 'sign-up-email-verification' && !!snapshot.queryParams?.email) {
-      this.signUpEmailVerified(snapshot.queryParams.email).catch(error => {
+    const email = snapshot.queryParams?.email;
+    if (snapshot.url[0]?.path === 'sign-up-email-verification' && !!email) {
+      this.signUpEmailVerified(email).catch(error => {
         console.error(error);
       });
     }
 
-  }
-
-  async ngOnInit(): Promise<void> {
-    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    this.user = this.authService.user ?? await this.authService.getUser();
     if (this.user?.uid) {
       await this.router.navigate([`${this.user.uid}`]);
     }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/user.service";
 import {User} from "../models/user";
-import {first} from "rxjs/operators";
 import {FormControl, Validators} from "@angular/forms";
 import {ValidationService} from "../services/validation.service";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
@@ -31,7 +30,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.user = this.authService.user ?? await this.authService.user$.pipe(first()).toPromise();
+    this.user = this.authService.user ?? await this.authService.getUser();
     this.oriUsername = this.user?.username;
     this.usernameFc = new FormControl(this.user?.username ?? '', [Validators.required]);
     this.githubFc = new FormControl(this.user?.github_link ?? '', this.validationService.urlValidator());

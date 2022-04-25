@@ -6,6 +6,7 @@
       </div>
       <app-blog-editor [user]="user" [blog]="blog" *ngIf="isReady"></app-blog-editor>
     </mat-tab>
+
     <mat-tab label="Preview">
       <div class="preview-container" fxLayout="row" fxLayoutAlign="center start" *ngIf="blogEditor">
         <div fxLayout="column" class="preview-col-1" fxLayoutGap="36px">
@@ -28,11 +29,10 @@
             <mat-icon>keyboard_arrow_up</mat-icon>
           </button>
         </div>
-
-<!--        <div class="table-of-content" class="preview-col-2"></div>-->
       </div>
     </mat-tab>
   </mat-tab-group>
+
   <div class="button-container" fxLayout="row" fxLayoutGap="10px" *ngIf="!!user">
     <button mat-button color="primary" class="nav-button" (click)="onSubmit()">Submit</button>
     <button mat-button color="warn" class="nav-button" (click)="onExit()">Exit</button>

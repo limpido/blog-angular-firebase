@@ -1,4 +1,4 @@
-<div class="home-container" fxLayout="row" fxLayoutAlign="start center">
+<div class="home-container" fxLayout="row" fxLayoutAlign="center center">
   <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start center" class="author-profile" *ngIf="!!author">
     <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
       <img class="profile-photo" src="{{author.profile_pic_url?.length ? author.profile_pic_url : 'assets/default-profile-photo.jpg'}}">
@@ -31,5 +31,7 @@
     </div>
   </div>
 
-  <div *ngIf="!blogs?.length"></div>
+  <div class="no-blog-message" *ngIf="!blogs?.length" fxLayoutAlign="center center">
+    <span>No blog has been posted yet</span>
+  </div>
 </div>

@@ -4,7 +4,6 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {environment} from "../environments/environment";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BaseComponent } from './base/base.component';
@@ -37,6 +36,7 @@ import { ViewBlogComponent } from './view-blog/view-blog.component';
 import { HomeComponent } from './home/home.component';
 import { BlogBaseComponent } from './blog-base/blog-base.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {environmentProd} from "../environments/environment.prod";
 
 @NgModule({
   declarations: [
@@ -59,7 +59,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environmentProd.firebase),
     AngularFirestoreModule,
     AppRoutingModule,
     FlexLayoutModule,

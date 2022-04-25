@@ -22,9 +22,7 @@ export class SignUpModalComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     public signUpModal: MatDialogRef<SignUpModalComponent>,
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({
@@ -47,13 +45,11 @@ export class SignUpModalComponent implements OnInit {
     const email = fc.value!.trim();
     return new Promise(async (resolve, reject) => {
       this.userService.userEmailExists(email).then((users) => {
-        this.userService.userUnverifiedEmailExists(email).then((usersUnverified) => {
-          if (users.length > 0 || usersUnverified.length > 0) {
-            resolve({emailExists: true});
-          } else {
-            resolve(null);
-          }
-        });
+        if (users.length > 0) {
+          resolve({emailExists: true});
+        } else {
+          resolve(null);
+        }
       });
     });
   }

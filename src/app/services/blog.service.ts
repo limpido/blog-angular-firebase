@@ -24,14 +24,8 @@ export class BlogService {
     return this.af.doc(`users/${uid}/categories/${categoryName}`).update(data);
   }
 
-  async incrementCategoryBlogNumber(uid: string, categoryName: string): Promise<void> {
-    await this.updateCategory(uid, categoryName, {blog_number: FieldValue.increment(1)});
-  }
-
-  getCategoryByCategoryName(uid: string, categoryName: string) {
-    return this.af.doc(`users/${uid}/categories/${categoryName}`).ref.get().then((docSnapshot) => {
-      return docSnapshot.data();
-    });
+  async incrementCategoryBlogNumber(uid: string, categoryName: string, value: number): Promise<void> {
+    await this.updateCategory(uid, categoryName, {blog_number: FieldValue.increment(value)});
   }
 
   getAllCategories(uid: string): Promise<Array<Category>> {
@@ -44,15 +38,11 @@ export class BlogService {
         }))).pipe(first()).toPromise();
   }
 
-  deleteCategory() {
-
-  }
-
   addBlog(uid: string, blog: Blog): Promise<DocumentReference<Blog>> {
     return this.af.collection(`users/${uid}/blogs`).add(blog);
   }
 
-  getBlogById(uid: string, blogId: string) {
+  getBlogById(uid: string, blogId: string): Promise<Blog> {
     return this.af.doc(`users/${uid}/blogs/${blogId}`).ref.get().then((docSnapshot) => {
       return docSnapshot.data();
     });
@@ -81,9 +71,5 @@ export class BlogService {
 
   updateBlog(uid: string, blogId: string, data: Blog | any): Promise<void> {
     return this.af.doc(`users/${uid}/blogs/${blogId}`).update(data);
-  }
-
-  deleteBlog() {
-
   }
 }

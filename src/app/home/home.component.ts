@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {User} from "../models/user";
 import {Blog} from "../models/blog";
 import {AuthService} from "../services/auth.service";
@@ -11,7 +11,7 @@ import {UserService} from "../services/user.service";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnChanges {
 
   @Input() user: User;
   @Input() author: User;
@@ -28,7 +28,10 @@ export class HomeComponent implements OnInit {
     private router: Router,
   ) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
     this.hasMoreBlogs = this.blogs.length === this.defaultBlogSize;
   }
 

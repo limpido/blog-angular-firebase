@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore, DocumentChangeAction} from "@angular/fire/compat/firestore";
 import {User} from "../models/user";
 import {map, first} from "rxjs/operators";
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +16,10 @@ export class UserService {
     return this.af.doc(`users/${uid}`).set(user);
   }
 
-  getUserByUid(uid: string): Observable<User> {
-    return this.af.doc(`users/${uid}`).snapshotChanges().pipe(
-      map(userDoc => {
-        if (userDoc.payload.data()) {
-          return {...(userDoc.payload.data()) as Object} as User;
-        }
-        return null;
-      }));
+  getUserByUid(uid: string): Promise<User> {
+    return this.af.doc(`users/${uid}`).ref.get().then((docSnapshot) => {
+      return docSnapshot.data();
+    });
   }
 
   updateUser(uid: string, data: User | any): Promise<void> {
