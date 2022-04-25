@@ -22,9 +22,7 @@ export class SignUpModalComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     public signUpModal: MatDialogRef<SignUpModalComponent>,
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({

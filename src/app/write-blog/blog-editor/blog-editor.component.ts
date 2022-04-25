@@ -28,8 +28,7 @@ export class BlogEditorComponent implements OnInit {
     private formBuilder: FormBuilder,
     private storage: AngularFireStorage,
     private blogService: BlogService,
-  ) {
-  }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.markdown = this.blog?.content ?? '';

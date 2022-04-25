@@ -43,8 +43,7 @@ export class NavBarComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public dialog: MatDialog,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.tabs = [

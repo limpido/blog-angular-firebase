@@ -18,14 +18,13 @@ export class LogInModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     public logInModal: MatDialogRef<LogInModalComponent>,
     private authService: AuthService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.logInForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-  }
-
-  ngOnInit(): void {
   }
 
   async onSubmit(): Promise<void> {
